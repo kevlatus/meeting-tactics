@@ -1,0 +1,11 @@
+<mat-list>
+  <mat-list-item *ngFor="let i of items; let idx = index;">
+    <div>{{i}}</div>
+
+    <div class="spacer"></div>
+
+    <button mat-icon-button color="warn" (click)="delete(idx)" *ngIf="editable">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>

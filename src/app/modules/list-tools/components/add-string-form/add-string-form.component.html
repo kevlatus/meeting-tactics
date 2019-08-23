@@ -1,0 +1,9 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput placeholder="Name" formControlName="name" (paste)="onPaste($event)">
+  </mat-form-field>
+
+  <button mat-icon-button color="primary" type="submit">
+    <mat-icon>add</mat-icon>
+  </button>
+</form>

@@ -1,0 +1,44 @@
+<mat-card>
+  <h3>Who's next?</h3>
+
+  {{rouletteState}}
+
+  <div class="roulette-controls">
+    <button mat-raised-button color="primary" [disabled]="participants.length < 2" (click)="onStart()"
+            *ngIf="canStart(rouletteState)">
+      START
+    </button>
+
+    <button mat-button color="primary" (click)="onStart()" *ngIf="canNext(rouletteState)">
+      NEXT
+    </button>
+
+    <button mat-button (click)="onReroll()" *ngIf="canRestart(rouletteState)">
+      ROLL AGAIN
+    </button>
+
+    <button mat-button color="warn" (click)="onRestart()" *ngIf="canRestart(rouletteState)">
+      RESTART
+    </button>
+  </div>
+
+  <app-roulette-game [items]="participants" (state)="onStateChange($event)" (selected)="onSelectedChange($event)">
+    <app-roulette-box></app-roulette-box>
+  </app-roulette-game>
+
+  <div class="setup-container" *ngIf="rouletteState === 'ready'">
+    <div class="layout-horizontal">
+      <app-add-string-form (newItem)="onNewItem($event)" class="spacer"></app-add-string-form>
+
+      <button mat-icon-button color="primary" matTooltip="Use Calendar" (click)="fromCalendar()" disabled>
+        <mat-icon>event</mat-icon>
+      </button>
+    </div>
+
+    <app-string-list [(items)]="participants"></app-string-list>
+  </div>
+
+  <div class="progress-container" *ngIf="rouletteState !== 'ready'">
+    <app-item-selection-columns [items]="participants" [selectedItems]="selectedItems"></app-item-selection-columns>
+  </div>
+</mat-card>

@@ -1,0 +1,21 @@
+@import "~@angular/material/theming";
+
+:host(:focus) {
+  outline: none;
+}
+
+mat-card {
+  @include mat-elevation-transition();
+
+  min-width: 256px;
+  max-width: 256px;
+  min-height: 128px;
+  max-height: 128px;
+  margin: 8px;
+}
+
+mat-card:hover {
+  @include mat-elevation(6);
+
+  cursor: pointer;
+}

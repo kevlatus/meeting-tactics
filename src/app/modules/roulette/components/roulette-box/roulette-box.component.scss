@@ -1,0 +1,9 @@
+@import '~src/app/theme';
+
+.active-item {
+  border: 1px solid $primary-color;
+  padding: 16px;
+  text-align: center;
+  background-color: rgba($primary-color, 0.3);
+  font-weight: bold;
+}

@@ -1,0 +1,45 @@
+@import '~src/app/theme';
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: radial-gradient(
+      circle closest-corner at 10vw 70vh,
+      rgba($primary-color, 0.3) 0%,
+      rgba($primary-color, 0.3) 60%,
+      transparent 60%,
+      transparent 100%
+  ),
+  radial-gradient(
+      circle closest-corner at 40vw 20vh,
+      rgba($primary-color, 0.3) 0%,
+      rgba($primary-color, 0.3) 40%,
+      transparent 40%,
+      transparent 100%
+  ),
+  radial-gradient(
+      circle farthest-corner at 100vw 100vh,
+      rgba($primary-color, 0.3) 0%,
+      rgba($primary-color, 0.3) 40%,
+      rgba($primary-color, 0.1) 40%,
+      rgba($primary-color, 0.1) 100%
+  ), #fafafa;
+}
+
+.layout-horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.layout-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

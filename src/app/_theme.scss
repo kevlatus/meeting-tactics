@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$topaz-primary: mat-palette($mat-indigo);
+$topaz-accent: mat-palette($mat-pink, A200, A100, A400);
+$topaz-warn: mat-palette($mat-red);
+
+$topaz-theme: mat-light-theme($topaz-primary, $topaz-accent, $topaz-warn);
+
+@include angular-material-theme($topaz-theme);
+
+$primary-color: mat-color($topaz-primary);
