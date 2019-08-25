@@ -1,8 +1,6 @@
 <mat-card>
   <h3>Who's next?</h3>
 
-  {{rouletteState}}
-
   <div class="roulette-controls">
     <button mat-raised-button color="primary" [disabled]="participants.length < 2" (click)="onStart()"
             *ngIf="canStart(rouletteState)">
@@ -14,7 +12,7 @@
     </button>
 
     <button mat-button (click)="onReroll()" *ngIf="canRestart(rouletteState)">
-      ROLL AGAIN
+      UNDO ROLL
     </button>
 
     <button mat-button color="warn" (click)="onRestart()" *ngIf="canRestart(rouletteState)">
@@ -30,9 +28,9 @@
     <div class="layout-horizontal">
       <app-add-string-form (newItem)="onNewItem($event)" class="spacer"></app-add-string-form>
 
-      <button mat-icon-button color="primary" matTooltip="Use Calendar" (click)="fromCalendar()" disabled>
+      <!-- <button mat-icon-button color="primary" matTooltip="Use Calendar" (click)="fromCalendar()" disabled>
         <mat-icon>event</mat-icon>
-      </button>
+      </button> -->
     </div>
 
     <app-string-list [(items)]="participants"></app-string-list>
