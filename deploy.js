@@ -17,19 +17,21 @@ function getFiles(p) {
 }
 
 try {
-  console.log('Starting Angular build');
+  console.log('starting Angular build');
   execSync('npm run build');
 
-  console.log('Copying build output to temp dir');
+  console.log('copying build output to temp dir');
   fs.copySync(path.join('./dist', name), TEMP_DIR);
 
   execSync('git checkout gh-pages');
 
+  console.log('deleting existing files.');
   const files = getFiles('./');
   for (const f of files) {
     fs.unlinkSync(f);
   }
 
+  console.log('copying built files to current directory.');
   fs.copySync(TEMP_DIR, './');
 
   execSync('git add .');
@@ -38,5 +40,6 @@ try {
   execSync('git checkout master');
 }
 finally {
+  console.log('deleting temporary directory');
   fs.removeSync(TEMP_DIR);
 }
