@@ -9,14 +9,28 @@ const TEMP_DIR = fs.mkdtempSync(path.join(os.tmpdir(), name), {recursive: true})
 
 console.log(`Creating temp dir at ${TEMP_DIR}`);
 
-try {
-  // console.log('Starting Angular build');
-  // execSync('npm run build');
+function getFiles(p) {
+  const names = fs.readdirSync(p);
+  return names
+    .filter(n => fs.statSync(path.join(p, n)).isFile())
+    .map(n => path.join(p, n));
+}
 
-  // console.log('Copying build output to temp dir');
-  // fs.copySync(path.join('./dist', name), TEMP_DIR);
+try {
+  console.log('Starting Angular build');
+  execSync('npm run build');
+
+  console.log('Copying build output to temp dir');
+  fs.copySync(path.join('./dist', name), TEMP_DIR);
 
   execSync('git checkout gh-pages');
+
+  const files = getFiles('./');
+  for (const f of files) {
+    fs.unlinkSync(f);
+  }
+
+  fs.copySync(TEMP_DIR, './')
 }
 finally {
   fs.removeSync(TEMP_DIR);
