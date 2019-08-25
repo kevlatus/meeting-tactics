@@ -1,9 +1,10 @@
 @import '~src/app/theme';
 
 mat-toolbar {
+  height: 64px;
   background: transparent !important;
-  margin-bottom: -1px;
   border-bottom: 1px solid $color-primary;
+  box-sizing: border-box;
 }
 
 .title {
@@ -15,6 +16,6 @@ mat-toolbar {
 }
 
 .content {
-  height: calc(100% - 64px);
+  height: calc(100vh - 64px);
   overflow: auto;
 }

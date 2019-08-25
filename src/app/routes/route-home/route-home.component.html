@@ -1,4 +1,4 @@
-<mat-card class="intro">
+<!-- <mat-card class="intro">
   <h3>About this page</h3>
 
   <p>
@@ -7,7 +7,9 @@
   </p>
 
   <p>Using timeboxing and rotating responsibilities every participant will be involved.</p>
-</mat-card>
+</mat-card> -->
+
+<app-intro-section></app-intro-section>
 
 <div class="link-container">
   <app-tool-card *ngFor="let t of tools" [title]="t.title" [description]="t.description" [routerLink]="t.href">

@@ -1,0 +1,30 @@
+@import '~src/app/theme';
+
+:host {
+  display: block;
+  background: rgba($color-primary, 0.3);
+  padding: 32px;
+}
+
+.intro {
+  font-size: 1.3em;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.intro > *:first-child {
+  margin-bottom: 32px;
+}
+
+.right {
+  text-align: right;
+  align-self: flex-end;
+}
+
+@media screen and (max-width: 900px) {
+  .intro > * {
+    max-width: 256px;
+  }
+}
+
+

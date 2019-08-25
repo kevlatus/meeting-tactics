@@ -1,18 +1,13 @@
+@import '~src/app/theme';
+
 :host {
   display: block;
-  margin: 16px;
-}
-
-.intro {
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 .link-container {
   display: flex;
   flex-wrap: wrap;
   max-width: 800px;
-  height: 100%;
   margin: 16px auto;
   align-items: center;
   justify-content: center;

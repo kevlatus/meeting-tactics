@@ -17,7 +17,7 @@ export class RouteHomeComponent {
   tools: Tool[] = [
     {
       title: 'Who\'s next? 🎲💬',
-      description: 'Randomly selects the next speaker from all participants.\n\nUseful for regular team meetings.',
+      description: 'Randomly select the next speaker from all participants.\n\nUseful for regular team meetings.',
       href: RouteNames.ROULETTE_ORDER_FULL
     },
     // {title: 'Role Roulette', description: '', href: RouteNames.ROULETTE_ROLE_FULL},
