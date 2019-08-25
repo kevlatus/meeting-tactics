@@ -30,7 +30,12 @@ try {
     fs.unlinkSync(f);
   }
 
-  fs.copySync(TEMP_DIR, './')
+  fs.copySync(TEMP_DIR, './');
+
+  execSync('git add .');
+  execSync('git commit -m "update gh page"');
+  execSync('git push origin gh-pages');
+  execSync('git checkout master');
 }
 finally {
   fs.removeSync(TEMP_DIR);
