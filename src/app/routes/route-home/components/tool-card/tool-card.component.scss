@@ -1,4 +1,9 @@
 @import "~@angular/material/theming";
+@import "~src/app/theme";
+
+:host {
+  display: block;
+}
 
 :host(:focus) {
   outline: none;
@@ -12,10 +17,27 @@ mat-card {
   min-height: 128px;
   max-height: 128px;
   margin: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+mat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($color-accent, 0.3);
+  z-index: -1;
 }
 
 mat-card:hover {
   @include mat-elevation(6);
 
   cursor: pointer;
+}
+
+.description {
+  white-space: pre-wrap;
 }

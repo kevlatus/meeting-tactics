@@ -1,5 +1,17 @@
+@import '~src/app/theme';
+
+mat-toolbar {
+  background: transparent !important;
+  margin-bottom: -1px;
+  border-bottom: 1px solid $color-primary;
+}
+
 .title {
   cursor: pointer;
+}
+
+.title:focus {
+  outline: none;
 }
 
 .content {

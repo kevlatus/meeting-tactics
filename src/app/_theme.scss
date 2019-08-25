@@ -2,12 +2,13 @@
 
 @include mat-core();
 
-$topaz-primary: mat-palette($mat-indigo);
-$topaz-accent: mat-palette($mat-pink, A200, A100, A400);
-$topaz-warn: mat-palette($mat-red);
+$primary: mat-palette($mat-blue);
+$accent: mat-palette($mat-amber, A200, A100, A400);
+$warn: mat-palette($mat-red);
 
-$topaz-theme: mat-light-theme($topaz-primary, $topaz-accent, $topaz-warn);
+$theme: mat-light-theme($primary, $accent, $warn);
 
-@include angular-material-theme($topaz-theme);
+@include angular-material-theme($theme);
 
-$primary-color: mat-color($topaz-primary);
+$color-primary: mat-color($primary);
+$color-accent: mat-color($accent);

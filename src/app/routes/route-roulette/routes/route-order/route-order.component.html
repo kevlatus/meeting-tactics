@@ -1,9 +1,12 @@
 <mat-card>
-  <h3>Who's next?</h3>
+  <h3>Who's next? 🎲💬</h3>
+
+  <p>Randomly selects the next speaker from all participants.</p>
+  <p>Add participants by typing their names below. You can also copy & paste a list of names into the text field.</p>
 
   <div class="roulette-controls">
     <button mat-raised-button color="primary" [disabled]="participants.length < 2" (click)="onStart()"
-            *ngIf="canStart(rouletteState)">
+      *ngIf="canStart(rouletteState)">
       START
     </button>
 

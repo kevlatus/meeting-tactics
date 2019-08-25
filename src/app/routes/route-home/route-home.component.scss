@@ -1,7 +1,11 @@
 :host {
   display: block;
-  height: 100%;
-  width: 100%;
+  margin: 16px;
+}
+
+.intro {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .link-container {
@@ -9,7 +13,7 @@
   flex-wrap: wrap;
   max-width: 800px;
   height: 100%;
-  margin: 0 auto;
+  margin: 16px auto;
   align-items: center;
   justify-content: center;
 }
