@@ -24,6 +24,16 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
+              {
+                "glob": "CNAME",
+                "input": "./",
+                "output": "./"
+              },
+              {
+                "glob": ".gitignore",
+                "input": "./",
+                "output": "./"
+              },
               "src/favicon.ico",
               "src/assets"
             ],
@@ -119,6 +129,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "kvasir"
 }
