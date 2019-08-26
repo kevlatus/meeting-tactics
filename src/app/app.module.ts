@@ -12,6 +12,7 @@ import {rootReducer} from './store';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthenticationModule} from './modules/authentication';
 import {CalendarModule} from './modules/calendar/calendar.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {CalendarModule} from './modules/calendar/calendar.module';
     AppRoutingModule,
     AuthenticationModule.forRoot(),
     CalendarModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]
