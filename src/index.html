@@ -8,10 +8,19 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" as="style"
+    onload="this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap">
+  </noscript>
 
-  <script src="https://apis.google.com/js/api.js" type="text/javascript"></script>
+  <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style"
+    onload="this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </noscript>
+
+  <script src="https://apis.google.com/js/api.js" type="text/javascript" defer></script>
 </head>
 
 <body>
