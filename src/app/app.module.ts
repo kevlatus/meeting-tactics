@@ -12,8 +12,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { rootReducer } from './store';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthenticationModule } from './modules/authentication';
-import { CalendarModule } from './modules/calendar/calendar.module';
 
 @NgModule({
   declarations: [
@@ -30,8 +28,6 @@ import { CalendarModule } from './modules/calendar/calendar.module';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
     AppRoutingModule,
-    AuthenticationModule.forRoot(),
-    CalendarModule.forRoot(),
   ],
   providers: [
     UserTrackingService,
