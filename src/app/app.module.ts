@@ -7,7 +7,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { StoreModule } from '@ngrx/store';
 import { ScullyLibModule } from '@scullyio/ng-lib';
-import { NgkComponentsModule } from 'ngk-components';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -25,7 +24,6 @@ import { CalendarModule } from './modules/calendar/calendar.module';
     BrowserAnimationsModule,
     MatToolbarModule,
     StoreModule.forRoot(rootReducer),
-    NgkComponentsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAnalyticsModule,
     ScullyLibModule,

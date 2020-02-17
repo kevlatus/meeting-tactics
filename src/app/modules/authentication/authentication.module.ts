@@ -1,6 +1,5 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import {NgkComponentsModule} from 'ngk-components';
 
 import {AuthenticationService} from './services/authentication.service';
 
@@ -9,7 +8,6 @@ import {AuthenticationService} from './services/authentication.service';
   declarations: [],
   imports: [
     AngularFireAuthModule,
-    NgkComponentsModule,
   ],
   exports: []
 })
