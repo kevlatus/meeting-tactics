@@ -1,0 +1,38 @@
+
+name: Deploy to Github Pages
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Use Node.js 10.16.3
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.16.3
+
+      - name: Install dependencies
+        run: npm ci
+
+      #- name: Lint
+      #  run: npm run lint
+
+      # - name: Run tests
+      #   run: npm run test -- --no-watch --browsers=ChromeHeadless
+
+      - name: GitHub Pages Deploy
+        uses: JamesIves/github-pages-deploy-action@master
+        env:
+          ACCESS_TOKEN: ${{ secrets.GH_PAT }}
+          BASE_BRANCH: master
+          BRANCH: gh-pages
+          FOLDER: dist/static
+          BUILD_SCRIPT: npm run build -- --prod && npm run scully
+          CNAME: meet.kevlatus.de
+
