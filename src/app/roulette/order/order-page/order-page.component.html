@@ -30,10 +30,6 @@
   <div class="setup-container" *ngIf="rouletteState === 'ready'">
     <div class="layout-horizontal">
       <app-add-string-form (newItem)="onNewItem($event)" class="spacer"></app-add-string-form>
-
-      <!-- <button mat-icon-button color="primary" matTooltip="Use Calendar" (click)="fromCalendar()" disabled>
-        <mat-icon>event</mat-icon>
-      </button> -->
     </div>
 
     <app-string-list [(items)]="participants"></app-string-list>

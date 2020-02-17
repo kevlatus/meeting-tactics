@@ -1,0 +1,6 @@
+<app-intro-section></app-intro-section>
+
+<div class="link-container">
+  <app-tool-card *ngFor="let t of tools" [title]="t.title" [description]="t.description" [routerLink]="t.href">
+  </app-tool-card>
+</div>

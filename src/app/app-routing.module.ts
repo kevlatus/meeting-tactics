@@ -1,16 +1,14 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-
-import {RouteNames} from './routes';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: RouteNames.HOME, pathMatch: 'full',
-    loadChildren: () => import('./routes/route-home/route-home.module').then(m => m.RouteHomeModule)
+    path: '', pathMatch: 'full',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
-    path: RouteNames.ROULETTE,
-    loadChildren: () => import('./routes/route-roulette/route-roulette.module').then(m => m.RouteRouletteModule)
+    path: 'roulette',
+    loadChildren: () => import('./roulette/roulette.module').then(m => m.RouletteModule)
   }
 ];
 

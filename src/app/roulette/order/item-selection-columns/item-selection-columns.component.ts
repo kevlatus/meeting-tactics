@@ -1,11 +1,11 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, SimpleChanges, Input } from '@angular/core';
 
 @Component({
   selector: 'app-item-selection-columns',
   templateUrl: './item-selection-columns.component.html',
   styleUrls: ['./item-selection-columns.component.scss']
 })
-export class ItemSelectionColumnsComponent implements OnChanges {
+export class ItemSelectionColumnsComponent {
   nonSelectedItems: string[] = [];
 
   @Input() public items: string[] = [];
