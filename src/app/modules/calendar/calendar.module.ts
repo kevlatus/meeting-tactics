@@ -1,7 +1,8 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatButtonModule, MatRippleModule} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 
 import {AuthenticationModule} from 'src/app/modules/authentication';
 
