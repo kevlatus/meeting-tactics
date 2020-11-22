@@ -29,9 +29,7 @@ class IntroBox extends StatelessWidget {
             style: theme.textTheme.subtitle1,
           ),
           Container(height: 8),
-          RaisedButton(
-            color: theme.primaryColor,
-            textColor: Colors.white,
+          ElevatedButton(
             child: Text(texts.home_quick_start),
             onPressed: () async {
               Router.of(context).push('/meeting/setup');

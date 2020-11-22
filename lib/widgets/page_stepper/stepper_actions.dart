@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../themed_buttons.dart';
 import 'cubit.dart';
 
 typedef BoolCallback = bool Function();
@@ -14,7 +13,7 @@ class StepperActions extends StatelessWidget {
     if (state.hasPrevious) {
       return Padding(
         padding: const EdgeInsets.only(right: 8),
-        child: PrimaryOutlineButton(
+        child: TextButton(
           onPressed: () {
             if (onPrevious == null || onPrevious()) {
               context.bloc<StepperCubit>().previousStep();
@@ -29,7 +28,7 @@ class StepperActions extends StatelessWidget {
   }
 
   Widget _buildContinueButton(BuildContext context, StepperState state) {
-    return PrimaryOutlineButton(
+    return OutlineButton(
       onPressed: () {
         if (onContinue == null || onContinue()) {
           context.bloc<StepperCubit>().nextStep();

@@ -50,7 +50,7 @@ class _MeetAppState extends State<MeetApp> {
             supportedLocales: AppLocalizations.supportedLocales,
             theme: ThemeData(
               primarySwatch: KevlatusColors.mint,
-              accentColor: KevlatusColors.coral,
+              accentColor: KevlatusColors.purpleAccent,
             ),
             routerDelegate: routerDelegate,
             routeInformationParser: routerParser,

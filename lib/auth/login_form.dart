@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meet/auth/auth.dart';
-import 'package:meet/widgets/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginForm extends StatelessWidget {
@@ -8,7 +7,7 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        PrimaryRaisedButton(
+        RaisedButton(
           onPressed: () =>
               context.repository<AuthRepository>().signInWithGoogle(),
           child: Text('Sign in with Google'),
