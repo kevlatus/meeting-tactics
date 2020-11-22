@@ -49,11 +49,13 @@ class _MeetAppState extends State<MeetApp> {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             theme: ThemeData(
+              visualDensity: VisualDensity.standard,
               primarySwatch: KevlatusColors.mint,
               primaryColor: KevlatusColors.mint,
               accentColor: KevlatusColors.purple,
             ),
             darkTheme: ThemeData(
+              visualDensity: VisualDensity.standard,
               primarySwatch: KevlatusColors.mintForDark,
               primaryColor: KevlatusColors.mintForDark,
               accentColor: KevlatusColors.purpleAccent,
