@@ -20,19 +20,18 @@ jobs:
       - run: flutter config --enable-web
 
       - run: flutter pub get
-#      - run: flutter test --coverage
+      #      - run: flutter test --coverage
 
-#      - name: upload coverage to Coveralls
-#        uses: coverallsapp/github-action@master
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
+      #      - name: upload coverage to Coveralls
+      #        uses: coverallsapp/github-action@master
+      #        with:
+      #          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: build app
         run: flutter build web
 
-      - name: deploy to Github Pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: build/web
+      - name: Publish
+          uses: netlify/actions/build@master
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            NETLIFY_DIR: build/web
