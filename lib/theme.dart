@@ -49,4 +49,19 @@ class KevlatusColors {
     700: Color(0xFFB950FF),
   });
   static const int _purpleAccentValue = 0xFFD89CFF;
+
+  static const MaterialColor mintForDark =
+      MaterialColor(_mintForDarkValue, <int, Color>{
+    50: Color(0xFFF0FAF7),
+    100: Color(0xFFD9F2EA),
+    200: Color(0xFFC0E9DD),
+    300: Color(0xFFA6E0CF),
+    400: Color(0xFF93DAC4),
+    500: Color(_mintForDarkValue),
+    600: Color(0xFF78CEB3),
+    700: Color(0xFF6DC8AB),
+    800: Color(0xFF63C2A3),
+    900: Color(0xFF50B794),
+  });
+  static const int _mintForDarkValue = 0xFF80D3BA;
 }
