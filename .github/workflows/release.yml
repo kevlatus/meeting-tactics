@@ -30,8 +30,10 @@ jobs:
       - name: build app
         run: flutter build web
 
-      - name: Publish
-        uses: netlify/actions/build@master
-        env:
+      - name: deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NETLIFY_DIR: build/web
+          BRANCH: netlify
+          FOLDER: build/web
+
