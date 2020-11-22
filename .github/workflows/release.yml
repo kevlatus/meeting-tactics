@@ -31,7 +31,7 @@ jobs:
         run: flutter build web
 
       - name: Publish
-          uses: netlify/actions/build@master
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            NETLIFY_DIR: build/web
+        uses: netlify/actions/build@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NETLIFY_DIR: build/web
