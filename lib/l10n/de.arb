@@ -1,0 +1,25 @@
+{
+  "@@locale": "de",
+  "home_greeting_line_1": "Meetings sollten effizient ⌚ sein und Spaß 🥳 machen",
+  "@home_greeting_line_1": {},
+  "home_greeting_line_2": "Starte unten, um sie aufzupeppen.",
+  "@home_greeting_line_2": {},
+  "home_quick_start": "Schnellstart",
+  "@home_quick_start": {},
+  "setup_event_heading": "Besprechungsdetails",
+  "@setup_event_heading": {},
+  "setup_event_description": "Beginnen wir mit dem Hinzufügen von Teilnehmern zu Ihrem Meeting. Sie können entweder ihre Namen unten eingeben oder sie kopieren und einfügen.",
+  "@setup_event_description": {},
+  "action_continue": "weiter",
+  "@action_continue": {},
+  "action_previous": "zurück",
+  "@action_previous": {},
+  "action_finish": "abschließen",
+  "@action_finish": {},
+  "error_setup_event_needMoreGuests": "{NUM_PARTICIPANTS, plural, =1 {Please add at least # participant} other {Please add at least # participants}}",
+  "@error_setup_event_needMoreGuests": {
+    "placeholders": {
+      "NUM_PARTICIPANTS": {}
+    }
+  }
+}

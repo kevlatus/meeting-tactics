@@ -1,0 +1,21 @@
+{
+  "@@locale": "en",
+  "home_greeting_line_1": "Meetings should be efficient ⌚ and fun 🥳",
+  "@home_greeting_line_1": {},
+  "home_greeting_line_2": "Get started below to spice them up.",
+  "@home_greeting_line_2": {},
+  "home_quick_start": "Quick Start",
+  "@home_quick_start": {},
+  "setup_event_heading": "Meeting Details",
+  "@setup_event_heading": {},
+  "setup_event_description": "Let's get started by adding participants to your meeting. You can either type their names below or copy and paste them.",
+  "@setup_event_description": {},
+  "action_continue": "continue",
+  "@action_continue": {},
+  "action_previous": "previous",
+  "@action_previous": {},
+  "action_finish": "finish",
+  "@action_finish": {},
+  "error_setup_needMoreGuests": "Please add at least 2 participants",
+  "@error_setup_needMoreGuests": {}
+}
