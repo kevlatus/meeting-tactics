@@ -38,7 +38,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "de.kevlatus.meet.dev"
+        applicationId "de.kevlatus.meet"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
@@ -46,6 +46,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".dev"
+            debuggable true
+        }
+
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
