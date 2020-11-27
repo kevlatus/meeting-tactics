@@ -13,6 +13,8 @@ extension AppRouterExt on Router {
     return delegate;
   }
 
+  bool get canPop => appRouterDelegate.canPop;
+
   void push(String path) {
     appRouterDelegate.push(path);
   }
