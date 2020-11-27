@@ -55,6 +55,8 @@ class AppRouterDelegate extends RouterDelegate<AppRoute>
 
   AppRouterDelegate(this._routerConfig) : assert(_routerConfig != null);
 
+  bool get canPop => _routeStack.previous != null;
+
   void push(String path) {
     final route = _routerConfig.findByPath(path);
     _push(route);
