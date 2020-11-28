@@ -17,16 +17,27 @@ class MeetingSetupState extends Equatable {
   final CalendarEvent calendarEvent;
   final SetupError error;
 
-  MeetingSetupState({
-    this.calendarEvent = const CalendarEvent(),
+  const MeetingSetupState._({
+    this.calendarEvent,
     this.error,
   });
+
+  const MeetingSetupState.initial()
+      : calendarEvent = const CalendarEvent(
+          attendees: <EventGuest>[
+            EventGuest(name: 'A'),
+            EventGuest(name: 'B'),
+            EventGuest(name: 'C'),
+            EventGuest(name: 'D'),
+          ],
+        ),
+        error = null;
 
   MeetingSetupState copyWith({
     CalendarEvent calendarEvent,
     SetupError error,
   }) =>
-      MeetingSetupState(
+      MeetingSetupState._(
         calendarEvent: calendarEvent ?? this.calendarEvent,
         error: error ?? this.error,
       );
@@ -47,7 +58,7 @@ class UpdateMeetingSetupEvent extends MeetingSetupEvent {
 }
 
 class MeetingSetupBloc extends Bloc<MeetingSetupEvent, MeetingSetupState> {
-  MeetingSetupBloc() : super(MeetingSetupState());
+  MeetingSetupBloc() : super(MeetingSetupState.initial());
 
   @override
   Stream<MeetingSetupState> mapEventToState(MeetingSetupEvent event) async* {
