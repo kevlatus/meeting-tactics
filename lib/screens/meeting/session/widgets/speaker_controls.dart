@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meet/util/util.dart';
 import 'package:provider/provider.dart';
 
 import '../bloc.dart';
@@ -73,26 +74,21 @@ class SpeakerControls extends StatelessWidget {
       onPressed: canUndo ? meetingSession.resetSpeakers : null,
     );
 
-    if (!meetingSession.state.hasPreviousSpeaker) {
-      return FlatButton.icon(
-        icon: Icon(Icons.play_arrow),
-        label: Text('START'),
-        onPressed: meetingSession.nextSpeaker,
-      );
-    }
-
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        if (!meetingSession.state.hasPreviousSpeaker)
-          startButton
-        else if (canFinish)
-          finishButton
-        else
-          nextButton,
-        undoButton,
-        restartButton,
-      ],
+      children: withPadding(
+        padding: EdgeInsets.symmetric(horizontal: 4),
+        children: [
+          if (!meetingSession.state.hasPreviousSpeaker)
+            startButton
+          else if (canFinish)
+            finishButton
+          else
+            nextButton,
+          undoButton,
+          restartButton,
+        ],
+      ),
     );
   }
 }
