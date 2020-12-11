@@ -1,15 +1,13 @@
-import 'package:calendar_service/calendar_service.dart';
 import 'package:flutter/material.dart';
+import 'package:meet/callbacks.dart';
 import 'package:meet/util/util.dart';
 
 import 'guest_list.dart';
 import 'name_list_input.dart';
 
-typedef EventGuestsCallback = void Function(Iterable<EventGuest>);
-
 class EditableGuestList extends StatefulWidget {
-  final List<EventGuest> guests;
-  final EventGuestsCallback onChanged;
+  final List<String> guests;
+  final Callback<List<String>> onChanged;
 
   EditableGuestList({
     @required this.guests,
@@ -22,10 +20,8 @@ class EditableGuestList extends StatefulWidget {
 
 class _EditableGuestListState extends State<EditableGuestList> {
   Future<void> _onSubmitted(Iterable<String> names) async {
-    final duplicates = widget.guests
-        .map((it) => it.name)
-        .where((it) => names.contains(it))
-        .toSet();
+    final duplicates =
+        widget.guests.map((it) => it).where((it) => names.contains(it)).toSet();
     final nonDuplicates = names.toSet().difference(duplicates);
     if (nonDuplicates.contains('Organizer')) {
       final removeOrganizer = await showConfirmDialog(
@@ -39,8 +35,6 @@ class _EditableGuestListState extends State<EditableGuestList> {
       }
     }
 
-    final newGuests = nonDuplicates.map((it) => EventGuest(name: it));
-
     if (duplicates.isNotEmpty) {
       showWarningSnackbar(
         context: context,
@@ -52,15 +46,15 @@ class _EditableGuestListState extends State<EditableGuestList> {
     if (widget.onChanged != null) {
       widget.onChanged([
         ...widget.guests,
-        ...newGuests,
+        ...nonDuplicates,
       ]);
     }
   }
 
-  void _onDelete(EventGuest guest) {
+  void _onDelete(String attendee) {
     if (widget.onChanged != null) {
       widget.onChanged(
-        widget.guests.where((element) => element != guest).toList(),
+        widget.guests.where((element) => element != attendee).toList(),
       );
     }
   }

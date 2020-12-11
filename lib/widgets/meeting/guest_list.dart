@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:meet/callbacks.dart';
 
 class GuestList extends StatelessWidget {
-  final List<EventGuest> guests;
-  final Callback<EventGuest> onDelete;
+  final List<String> guests;
+  final Callback<String> onDelete;
 
   const GuestList({
     Key key,
@@ -21,7 +21,7 @@ class GuestList extends StatelessWidget {
       itemBuilder: (context, index) {
         return ListTile(
           contentPadding: EdgeInsets.all(0),
-          title: Text(guests[index].email ?? guests[index].name ?? ''),
+          title: Text(guests[index]),
           trailing: onDelete != null
               ? IconButton(
                   color: Colors.red,

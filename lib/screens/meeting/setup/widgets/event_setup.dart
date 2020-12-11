@@ -12,12 +12,12 @@ typedef CalendarEventCallback = void Function(CalendarEvent);
 class EventSetup extends StatelessWidget {
   const EventSetup({Key key}) : super(key: key);
 
-  void _updateGuestList(BuildContext context, List<EventGuest> guests) {
-    context.bloc<MeetingSetupBloc>().updateGuestList(guests);
+  void _updateAttendees(BuildContext context, List<String> attendees) {
+    context.bloc<MeetingSetupBloc>().updateAttendees(attendees);
   }
 
   bool _onConfirm(BuildContext context, MeetingSetupState state) {
-    final guestCount = state?.calendarEvent?.attendees?.length ?? 0;
+    final guestCount = state?.meeting?.attendees?.length ?? 0;
     if (guestCount < 2) {
       showErrorSnackbar(
         context: context,
@@ -52,8 +52,8 @@ class EventSetup extends StatelessWidget {
               child: Text(texts.setup_event_description),
             ),
             EditableGuestList(
-              guests: state.calendarEvent?.attendees ?? [],
-              onChanged: (guests) => _updateGuestList(context, guests),
+              guests: state.meeting?.attendees ?? [],
+              onChanged: (attendees) => _updateAttendees(context, attendees),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
