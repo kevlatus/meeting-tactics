@@ -4,13 +4,6 @@ import 'package:meet/widgets/widgets.dart';
 import 'widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
-  static Page page() {
-    return MaterialPage(
-      key: ValueKey('HomePage'),
-      child: HomeScreen(),
-    );
-  }
-
   const HomeScreen({Key key}) : super(key: key);
 
   @override

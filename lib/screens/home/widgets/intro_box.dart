@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:router_v2/router_v2.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meet/routes.dart';
 
 class IntroBox extends StatelessWidget {
   const IntroBox({
@@ -32,7 +32,7 @@ class IntroBox extends StatelessWidget {
           ElevatedButton(
             child: Text(texts.home_quick_start),
             onPressed: () async {
-              Router.of(context).push('/meeting/setup');
+              Navigator.of(context).pushNamed(AppRouter.meetingSetup);
             },
           ),
         ],

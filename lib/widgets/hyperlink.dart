@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:router_v2/router_v2.dart';
 
 class HyperLink extends StatelessWidget {
   final String href;
@@ -19,7 +18,7 @@ class HyperLink extends StatelessWidget {
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        Router.of(context).push(href);
+        Navigator.of(context).pushNamed(href);
       },
       child: DefaultTextStyle(
         child: child ?? Text(href),

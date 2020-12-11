@@ -1,16 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:meet/constants.dart';
-import 'package:router_v2/router_v2.dart';
+import 'package:meet/routes.dart';
 
 import 'app_footer.dart';
 
 class _SettingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: move route name to constant
-    final router = Router.of(context);
-    final isSettingsActive = router.isActive('/settings');
+    final isSettingsActive =
+        ModalRoute.of(context).settings.name == AppRouter.settings;
     if (isSettingsActive) {
       return Container();
     }
@@ -18,8 +17,7 @@ class _SettingsButton extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.settings),
       onPressed: () {
-        // TODO: move route name to constant
-        router.push('/settings');
+        Navigator.of(context).pushNamed(AppRouter.settings);
       },
     );
   }
@@ -46,8 +44,7 @@ class AppLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final router = Router.of(context);
-    final isMobileHome = !router.canPop && !kIsWeb;
+    final isMobileHome = !kIsWeb;
 
     final appIcon = isMobileHome
         ? Padding(

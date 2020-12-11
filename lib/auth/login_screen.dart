@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meet/routes.dart';
 import 'package:meet/widgets/widgets.dart';
-import 'package:router_v2/router_v2.dart';
 
 import 'auth_bloc.dart';
 import 'login_form.dart';
@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.status == AuthStatus.Authenticated) {
-          Router.of(context).replace('/');
+          Navigator.of(context).pushReplacementNamed(AppRouter.root);
         }
       },
       child: AppLayout(builder: (context) {

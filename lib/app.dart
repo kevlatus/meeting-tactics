@@ -1,11 +1,10 @@
 import 'package:calendar_service/calendar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:router_v2/router_v2.dart';
+import 'package:meet/screens/meeting/meeting.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'auth/auth.dart';
-import 'blocs/blocs.dart';
 import 'constants.dart';
 import 'routes.dart';
 import 'theme.dart';
@@ -26,13 +25,6 @@ class MeetApp extends StatefulWidget {
 }
 
 class _MeetAppState extends State<MeetApp> {
-  final AppRouterDelegate routerDelegate;
-  final AppRouteInformationParser routerParser;
-
-  _MeetAppState()
-      : routerDelegate = AppRouterDelegate(routerConfig),
-        routerParser = AppRouteInformationParser(routerConfig);
-
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -40,29 +32,32 @@ class _MeetAppState extends State<MeetApp> {
         RepositoryProvider.value(value: widget.authRepository),
         RepositoryProvider.value(value: widget.calendarRepository),
       ],
-      child: BlocProvider(
-        create: (_) => AuthBloc(authRepository: widget.authRepository),
-        child: BlocProvider(
-          create: (_) => AppBloc(),
-          child: MaterialApp.router(
-            title: kAppName,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            theme: ThemeData(
-              visualDensity: VisualDensity.standard,
-              primarySwatch: KevlatusColors.mint,
-              primaryColor: KevlatusColors.mint,
-              accentColor: KevlatusColors.purple,
-            ),
-            darkTheme: ThemeData(
-              visualDensity: VisualDensity.standard,
-              primarySwatch: KevlatusColors.mintForDark,
-              primaryColor: KevlatusColors.mintForDark,
-              accentColor: KevlatusColors.purpleAccent,
-              brightness: Brightness.dark,
-            ),
-            routerDelegate: routerDelegate,
-            routeInformationParser: routerParser,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => AuthBloc(authRepository: widget.authRepository),
+          ),
+          BlocProvider(
+            create: (_) => MeetingSessionCubit(),
+          ),
+        ],
+        child: MaterialApp(
+          title: kAppName,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          onGenerateRoute: AppRouter.generator,
+          theme: ThemeData(
+            visualDensity: VisualDensity.standard,
+            primarySwatch: KevlatusColors.mint,
+            primaryColor: KevlatusColors.mint,
+            accentColor: KevlatusColors.purple,
+          ),
+          darkTheme: ThemeData(
+            visualDensity: VisualDensity.standard,
+            primarySwatch: KevlatusColors.mintForDark,
+            primaryColor: KevlatusColors.mintForDark,
+            accentColor: KevlatusColors.purpleAccent,
+            brightness: Brightness.dark,
           ),
         ),
       ),

@@ -1,63 +1,51 @@
-import 'package:meet/auth/auth.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flutter/widgets.dart';
 import 'package:meet/screens/screens.dart';
-import 'package:router_v2/router_v2.dart';
 
-final routerConfig = RouterConfig(
-  routes: [
-    RouteDef(
-      path: '/',
-      pathMatch: RoutePathMatch.Exact,
-      builder: (_) => HomeScreen.page(),
-    ),
-    RouteDef(
-      path: '/meeting/session',
-      pathMatch: RoutePathMatch.Exact,
-      builder: (_) => MeetingSessionScreen.page(),
-    ),
-    RouteDef(
-      path: '/meeting/setup',
-      pathMatch: RoutePathMatch.Exact,
-      builder: (_) => MeetingSetupScreen.page(),
-    ),
-    RouteDef(
-      path: '/tactics',
-      pathMatch: RoutePathMatch.Exact,
-      builder: (_) => TacticsScreen.page(),
-    ),
-    RouteDef(
-      path: '/tactics/:id',
-      pathMatch: RoutePathMatch.Exact,
-      builder: (params) => TacticsDetailScreen.page(params['id']),
-    ),
-    RouteDef(
-      path: '/settings',
-      pathMatch: RoutePathMatch.Exact,
-      builder: (_) => SettingsScreen.page(),
-    ),
-    RouteDef(
-      path: '/legal',
-      pathMatch: RoutePathMatch.Exact,
-      builder: (_) => LegalNoticeScreen.page(),
-    ),
-    RouteDef.redirect(
-        path: '/impressum',
-        pathMatch: RoutePathMatch.Exact,
-        redirectTo: '/legal'),
-    RouteDef(
-      path: '/privacy',
-      pathMatch: RoutePathMatch.Exact,
-      builder: (_) => PrivacyPolicyScreen.page(),
-    ),
-    RouteDef(
-      path: '/signin',
-      pathMatch: RoutePathMatch.Exact,
-      builder: (_) => LoginScreen.page(),
-    ),
-    RouteDef(
-      path: '/404',
-      pathMatch: RoutePathMatch.Exact,
-      builder: (_) => UnknownScreen.page(),
-    ),
-  ],
-  fallbackPath: '/404',
+final _rootHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return HomeScreen();
+  },
 );
+
+final _meetingSetupHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return MeetingSetupScreen();
+  },
+);
+
+final _meetingSessionHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return MeetingSessionScreen();
+  },
+);
+
+final _notFoundHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return UnknownScreen();
+  },
+);
+
+class AppRouter {
+  static FluroRouter _instance;
+
+  static const String root = "/";
+  static const String meetingSetup = "/meeting/setup";
+  static const String meetingSession = "/meeting/session";
+  static const String settings = "/settings";
+
+  static void _configureRoutes() {
+    _instance.notFoundHandler = _notFoundHandler;
+    _instance.define(root, handler: _rootHandler);
+    _instance.define(meetingSetup, handler: _meetingSetupHandler);
+    _instance.define(meetingSession, handler: _meetingSessionHandler);
+  }
+
+  static RouteFactory get generator {
+    if (_instance == null) {
+      _instance = FluroRouter();
+      _configureRoutes();
+    }
+    return _instance.generator;
+  }
+}
