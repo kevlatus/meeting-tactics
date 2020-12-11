@@ -44,21 +44,10 @@ class AppLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobileHome = !kIsWeb;
-
-    final appIcon = isMobileHome
-        ? Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: _AppIcon(),
-          )
-        : Container();
-
     return Scaffold(
       appBar: AppBar(
-        leading: kIsWeb ? _AppIcon() : null,
         title: Row(
           children: [
-            appIcon,
             Text(kAppName),
           ],
         ),
