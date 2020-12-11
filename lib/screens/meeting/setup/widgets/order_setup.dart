@@ -7,7 +7,7 @@ import '../bloc.dart';
 class OrderSetup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MeetingSetupBloc, MeetingSetupState>(
+    return BlocBuilder<MeetingSetupCubit, MeetingSetupState>(
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.all(8.0),

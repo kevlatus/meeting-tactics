@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:calendar_service/calendar_service.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:meet/models/models.dart';
+import 'package:meta/meta.dart';
 
 class SetupError extends Error {
   final int step;
@@ -14,6 +13,7 @@ class SetupError extends Error {
   });
 }
 
+@immutable
 class MeetingSetupState extends Equatable {
   final Meeting meeting;
   final SetupError error;
@@ -42,37 +42,15 @@ class MeetingSetupState extends Equatable {
   List<Object> get props => [meeting, error];
 }
 
-abstract class MeetingSetupEvent extends Equatable {}
-
-class UpdateMeetingSetupEvent extends MeetingSetupEvent {
-  final MeetingSetupState state;
-
-  UpdateMeetingSetupEvent(this.state);
-
-  @override
-  List<Object> get props => [state];
-}
-
-class MeetingSetupBloc extends Bloc<MeetingSetupEvent, MeetingSetupState> {
-  MeetingSetupBloc() : super(MeetingSetupState.initial());
-
-  @override
-  Stream<MeetingSetupState> mapEventToState(MeetingSetupEvent event) async* {
-    if (event is UpdateMeetingSetupEvent) {
-      yield event.state;
-    }
-  }
-
-  void setState(MeetingSetupState state) {
-    add(UpdateMeetingSetupEvent(state));
-  }
+class MeetingSetupCubit extends Cubit<MeetingSetupState> {
+  MeetingSetupCubit() : super(MeetingSetupState.initial());
 
   void error(SetupError error) {
-    setState(state.copyWith(error: error));
+    emit(state.copyWith(error: error));
   }
 
   void updateAttendees(List<String> guests) {
-    setState(
+    emit(
       state.copyWith(
         meeting: state.meeting.copyWith(
           attendees: guests,

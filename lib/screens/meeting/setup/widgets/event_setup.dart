@@ -13,7 +13,7 @@ class EventSetup extends StatelessWidget {
   const EventSetup({Key key}) : super(key: key);
 
   void _updateAttendees(BuildContext context, List<String> attendees) {
-    context.bloc<MeetingSetupBloc>().updateAttendees(attendees);
+    context.bloc<MeetingSetupCubit>().updateAttendees(attendees);
   }
 
   bool _onConfirm(BuildContext context, MeetingSetupState state) {
@@ -33,7 +33,7 @@ class EventSetup extends StatelessWidget {
     final theme = Theme.of(context);
     final texts = AppLocalizations.of(context);
 
-    return BlocBuilder<MeetingSetupBloc, MeetingSetupState>(
+    return BlocBuilder<MeetingSetupCubit, MeetingSetupState>(
       builder: (context, state) {
         return Column(
           children: [

@@ -18,11 +18,11 @@ class _MeetingSetupScreenState extends State<MeetingSetupScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => MeetingSetupBloc(),
+      create: (_) => MeetingSetupCubit(),
       child: AppLayout(builder: (context) {
         return SetupStepper(
           onCompleted: () {
-            final event = context.bloc<MeetingSetupBloc>().state.meeting;
+            final event = context.bloc<MeetingSetupCubit>().state.meeting;
             context.bloc<MeetingSessionCubit>().startNewSession(event);
             Navigator.of(context).pushNamed(AppRouter.meetingSession);
           },
