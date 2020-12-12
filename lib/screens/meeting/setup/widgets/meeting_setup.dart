@@ -1,4 +1,3 @@
-import 'package:calendar_service/calendar_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meet/util/util.dart';
@@ -6,36 +5,81 @@ import 'package:meet/widgets/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../bloc.dart';
-import 'editable_guest_list.dart';
-
-typedef CalendarEventCallback = void Function(CalendarEvent);
 
 class EventSetup extends StatelessWidget {
   const EventSetup({Key key}) : super(key: key);
 
-  void _updateAttendees(BuildContext context, List<String> attendees) {
-    context.bloc<MeetingSetupCubit>().updateAttendees(attendees);
+  Future<void> _handleInvalidNames(
+    BuildContext context,
+    Iterable<InvalidNameSetupHint> hints,
+    String dialogTitle,
+    String dialogMessage, {
+    bool keepFirst = false,
+  }) async {
+    if (hints.isEmpty) return;
+
+    final cubit = context.bloc<MeetingSetupCubit>();
+    cubit.dismissHints(hints);
+
+    final names = [for (var hint in hints) hint.name];
+    final removeItems = await showItemSelectionDialog(
+      context: context,
+      title: dialogTitle,
+      message: dialogMessage,
+      items: names,
+    );
+
+    for (var it in removeItems) {
+      cubit.removeAttendees([it], keepFirst: keepFirst);
+    }
   }
 
-  bool _onConfirm(BuildContext context, MeetingSetupState state) {
-    final guestCount = state?.meeting?.attendees?.length ?? 0;
-    if (guestCount < 2) {
-      showErrorSnackbar(
-        context: context,
-        message: AppLocalizations.of(context).error_setup_needMoreGuests,
-      );
-      return false;
-    }
-    return true;
+  Future<void> _handleBlacklist(
+    BuildContext context,
+    Iterable<BlacklistHint> hints,
+  ) async {
+    return _handleInvalidNames(
+      context,
+      hints,
+      "Blacklisted value detected",
+      "The following values are on our blacklist. Do you want us to remove them?",
+    );
+  }
+
+  Future<void> _handleDuplicates(
+    BuildContext context,
+    Iterable<DuplicateHint> hints,
+  ) async {
+    return _handleInvalidNames(
+      context,
+      hints,
+      "Duplicate values detected",
+      "The following values are duplicated. Do you want us to remove them?",
+      keepFirst: true,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final texts = AppLocalizations.of(context);
+    final setupCubit = context.bloc<MeetingSetupCubit>();
 
-    return BlocBuilder<MeetingSetupCubit, MeetingSetupState>(
+    return BlocConsumer<MeetingSetupCubit, MeetingSetupState>(
+      listener: (context, state) async {
+        await _handleBlacklist(
+          context,
+          state.getHintsByType(BlacklistHint).cast<BlacklistHint>(),
+        );
+
+        await _handleDuplicates(
+          context,
+          state.getHintsByType(DuplicateHint).cast<DuplicateHint>(),
+        );
+      },
       builder: (context, state) {
+        final canContinue = (state.meeting?.attendees?.length ?? 0) > 1;
+
         return Column(
           children: [
             Align(
@@ -52,15 +96,15 @@ class EventSetup extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(texts.setup_event_description),
             ),
-            EditableGuestList(
-              guests: state.meeting?.attendees ?? [],
-              onChanged: (attendees) => _updateAttendees(context, attendees),
+            PasteAwareTextInput(
+              onSubmitted: setupCubit.addAttendees,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: StepperActions(
-                onContinue: () => _onConfirm(context, state),
-              ),
+            StepperActions.animated(
+              canContinue: () => canContinue,
+            ),
+            GuestList(
+              guests: state.meeting?.attendees ?? [],
+              onDelete: (attendees) => setupCubit.removeAttendees([attendees]),
             ),
           ],
         );

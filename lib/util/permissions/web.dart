@@ -1,4 +1,4 @@
-import 'dart:html' as html;
+import 'dart:html' as html; // ignore: avoid_web_libraries_in_flutter
 
 import 'shared.dart';
 

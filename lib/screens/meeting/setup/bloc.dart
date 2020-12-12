@@ -3,58 +3,159 @@ import 'package:equatable/equatable.dart';
 import 'package:meet/models/models.dart';
 import 'package:meta/meta.dart';
 
-class SetupError extends Error {
-  final int step;
-  final String message;
+const List<String> _blackList = <String>[
+  'Organisator',
+  'Organizer',
+  'E',
+];
 
-  SetupError({
+@immutable
+abstract class SetupHint extends Equatable {
+  final int step;
+
+  const SetupHint({
     this.step,
-    @required this.message,
   });
+}
+
+abstract class InvalidNameSetupHint extends SetupHint {
+  String get name;
+}
+
+class BlacklistHint extends SetupHint implements InvalidNameSetupHint {
+  final String name;
+
+  const BlacklistHint({
+    @required this.name,
+    int step,
+  }) : super(step: step);
+
+  @override
+  List<Object> get props => [step, name];
+}
+
+class DuplicateHint extends SetupHint implements InvalidNameSetupHint {
+  final String name;
+
+  const DuplicateHint({
+    @required this.name,
+    int step,
+  }) : super(step: step);
+
+  @override
+  List<Object> get props => [step, name];
 }
 
 @immutable
 class MeetingSetupState extends Equatable {
   final Meeting meeting;
-  final SetupError error;
+  final List<SetupHint> hints;
 
-  const MeetingSetupState._({
-    this.meeting,
-    this.error,
+  const MeetingSetupState({
+    this.meeting = const Meeting(
+      attendees: <String>['A', 'B', 'C', 'D'],
+    ),
+    this.hints = const <SetupHint>[],
   });
 
-  const MeetingSetupState.initial()
-      : meeting = const Meeting(
-          attendees: <String>['A', 'B', 'C', 'D'],
-        ),
-        error = null;
+  Iterable<SetupHint> getHintsByType(Type type) =>
+      hints.where((element) => element.runtimeType == type);
+
+  bool hasHint(Type type) => getHintsByType(type).isNotEmpty;
 
   MeetingSetupState copyWith({
     Meeting meeting,
-    SetupError error,
+    List<SetupHint> hints,
   }) =>
-      MeetingSetupState._(
+      MeetingSetupState(
         meeting: meeting ?? this.meeting,
-        error: error ?? this.error,
+        hints: hints ?? this.hints,
       );
 
   @override
-  List<Object> get props => [meeting, error];
+  List<Object> get props => [meeting, hints];
 }
 
 class MeetingSetupCubit extends Cubit<MeetingSetupState> {
-  MeetingSetupCubit() : super(MeetingSetupState.initial());
+  MeetingSetupCubit() : super(MeetingSetupState());
 
-  void error(SetupError error) {
-    emit(state.copyWith(error: error));
+  void addHints(List<SetupHint> hints) {
+    emit(state.copyWith(hints: [
+      ...state.hints,
+      ...hints,
+    ]));
   }
 
-  void updateAttendees(List<String> guests) {
+  void dismissHints(Iterable<SetupHint> hints) {
+    emit(state.copyWith(
+      hints: [
+        for (var it in state.hints)
+          if (!hints.contains(it)) it
+      ],
+    ));
+  }
+
+  void updateAttendees(Iterable<String> attendees) {
     emit(
       state.copyWith(
         meeting: state.meeting.copyWith(
-          attendees: guests,
+          attendees: attendees.toList(),
         ),
+      ),
+    );
+  }
+
+  void removeAttendees(Iterable<String> toBeDeleted, {bool keepFirst = false}) {
+    Iterable<String> update;
+    if (!keepFirst) {
+      update = state.meeting.attendees.where((it) => !toBeDeleted.contains(it));
+    } else {
+      update = <String>[
+        for (var entry in state.meeting.attendees.asMap().entries)
+          if (!toBeDeleted.contains(entry.value))
+            entry.value
+          else if (state.meeting.attendees
+              .sublist(0, entry.key)
+              .where((it) => toBeDeleted.contains(it))
+              .isEmpty)
+            entry.value
+      ];
+    }
+    updateAttendees(update);
+  }
+
+  void addAttendees(Iterable<String> attendees) {
+    final newAttendees = <String>[
+      ...(state.meeting?.attendees ?? []),
+      ...attendees,
+    ];
+
+    final newHints = <SetupHint>[];
+    final blacklisted = attendees.where((it) => _blackList.contains(it));
+    if (blacklisted.isNotEmpty) {
+      newHints.addAll([
+        for (var it in blacklisted) BlacklistHint(name: it),
+      ]);
+    }
+
+    final duplicates = [
+      for (var entry in newAttendees.asMap().entries)
+        if (newAttendees.sublist(entry.key + 1).contains(entry.value))
+          entry.value
+    ];
+    if (duplicates.isNotEmpty) {
+      newHints.addAll([
+        for (var it in duplicates) DuplicateHint(name: it),
+      ]);
+    }
+
+    emit(
+      state.copyWith(
+        meeting: state.meeting.copyWith(attendees: newAttendees),
+        hints: [
+          ...state.hints,
+          ...newHints,
+        ],
       ),
     );
   }
