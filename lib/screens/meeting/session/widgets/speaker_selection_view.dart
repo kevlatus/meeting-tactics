@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+import 'package:meet/screens/meeting/meeting.dart';
 
 class SpeakerSelectionView extends StatelessWidget {
   final int selected;
@@ -7,6 +8,7 @@ class SpeakerSelectionView extends StatelessWidget {
   final List<String> unavailableAttendees;
   final VoidCallback onAnimationStart;
   final VoidCallback onAnimationEnd;
+  final StepperDirection direction;
 
   const SpeakerSelectionView({
     Key key,
@@ -15,6 +17,7 @@ class SpeakerSelectionView extends StatelessWidget {
     this.onAnimationStart,
     this.onAnimationEnd,
     this.unavailableAttendees = const <String>[],
+    this.direction,
   }) : super(key: key);
 
   @override
@@ -29,6 +32,7 @@ class SpeakerSelectionView extends StatelessWidget {
       onAnimationStart: onAnimationStart,
       onAnimationEnd: onAnimationEnd,
       unavailableAttendees: unavailableAttendees,
+      direction: direction,
     );
   }
 }
@@ -39,6 +43,7 @@ class _FortuneWheelSpeakerSelection extends StatelessWidget {
   final List<String> unavailableAttendees;
   final VoidCallback onAnimationStart;
   final VoidCallback onAnimationEnd;
+  final StepperDirection direction;
 
   const _FortuneWheelSpeakerSelection({
     Key key,
@@ -47,6 +52,7 @@ class _FortuneWheelSpeakerSelection extends StatelessWidget {
     this.onAnimationStart,
     this.onAnimationEnd,
     this.unavailableAttendees = const <String>[],
+    this.direction,
   }) : super(key: key);
 
   @override
@@ -59,6 +65,9 @@ class _FortuneWheelSpeakerSelection extends StatelessWidget {
       child: SizedBox.expand(
         child: FortuneWheel(
           selected: selected < 0 ? 0 : selected,
+          animation: direction == StepperDirection.Backward
+              ? FortuneWheelAnimation.None
+              : FortuneWheelAnimation.Roll,
           onAnimationStart: onAnimationStart,
           onAnimationEnd: onAnimationEnd,
           slices: [

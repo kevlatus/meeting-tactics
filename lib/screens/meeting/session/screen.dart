@@ -42,6 +42,7 @@ class _ActiveMeeting extends HookWidget {
             SpeakerSelectionView(
               attendees: session.meeting.attendees,
               unavailableAttendees: unavailableAttendees,
+              direction: session.direction,
               selected: session.selectedSpeakerIndex,
               onAnimationStart: () {
                 isAnimating.value = true;
