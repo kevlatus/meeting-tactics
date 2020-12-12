@@ -17,7 +17,7 @@ class MeetingSessionState extends Equatable {
   const MeetingSessionState({
     this.meeting,
     this.isFinished = false,
-    this.orderStrategy = const OrderStrategy.fixed(),
+    this.orderStrategy = const OrderStrategy.random(),
     this.selectedSpeakers = const <String>[],
     this.direction,
   });
