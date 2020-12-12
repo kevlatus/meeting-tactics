@@ -15,16 +15,22 @@ class _MeetingNotInitialized extends StatelessWidget {
 }
 
 class _ActiveMeeting extends HookWidget {
-  final MeetingSessionState sessionState;
+  final MeetingSessionState session;
 
   const _ActiveMeeting({
     Key key,
-    @required this.sessionState,
+    @required this.session,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final isAnimating = useState(false);
+
+    final unavailableAttendees = session.selectedSpeakers.take(
+      session.selectedSpeakers.isEmpty
+          ? 0
+          : session.selectedSpeakers.length - 1,
+    ).toList();
 
     return Center(
       child: Padding(
@@ -34,8 +40,9 @@ class _ActiveMeeting extends HookWidget {
           children: [
             SpeakerControls(disabled: isAnimating.value),
             SpeakerSelectionView(
-              attendees: sessionState.meeting.attendees,
-              selected: sessionState.selectedSpeakerIndex,
+              attendees: session.meeting.attendees,
+              unavailableAttendees: unavailableAttendees,
+              selected: session.selectedSpeakerIndex,
               onAnimationStart: () {
                 isAnimating.value = true;
               },
@@ -68,7 +75,7 @@ class MeetingSessionScreen extends StatelessWidget {
           builder: (context) {
             return state.meeting == null
                 ? _MeetingNotInitialized()
-                : _ActiveMeeting(sessionState: state);
+                : _ActiveMeeting(session: state);
           },
         );
       },
