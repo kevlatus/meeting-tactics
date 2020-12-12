@@ -6,7 +6,6 @@ import 'package:meta/meta.dart';
 const List<String> _blackList = <String>[
   'Organisator',
   'Organizer',
-  'E',
 ];
 
 @immutable
@@ -52,9 +51,7 @@ class MeetingSetupState extends Equatable {
   final List<SetupHint> hints;
 
   const MeetingSetupState({
-    this.meeting = const Meeting(
-      attendees: <String>['A', 'B', 'C', 'D'],
-    ),
+    this.meeting = const Meeting(),
     this.hints = const <SetupHint>[],
   });
 
