@@ -22,12 +22,13 @@ class EventSetup extends StatelessWidget {
     cubit.dismissHints(hints);
 
     final names = [for (var hint in hints) hint.name];
-    final removeItems = await showItemSelectionDialog(
-      context: context,
-      title: dialogTitle,
-      message: dialogMessage,
-      items: names,
-    );
+    final removeItems = (await showItemSelectionDialog(
+          context: context,
+          title: dialogTitle,
+          message: dialogMessage,
+          items: removeDuplicates(names),
+        )) ??
+        [];
 
     for (var it in removeItems) {
       cubit.removeAttendees([it], keepFirst: keepFirst);
