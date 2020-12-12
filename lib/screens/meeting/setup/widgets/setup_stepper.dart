@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meet/widgets/widgets.dart';
 
-import 'event_setup.dart';
+import 'meeting_setup.dart';
 
 class SetupStepper extends StatelessWidget {
   final VoidCallback onCompleted;

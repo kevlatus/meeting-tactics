@@ -6,6 +6,7 @@ import 'package:meet/widgets/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../bloc.dart';
+import 'editable_guest_list.dart';
 
 typedef CalendarEventCallback = void Function(CalendarEvent);
 

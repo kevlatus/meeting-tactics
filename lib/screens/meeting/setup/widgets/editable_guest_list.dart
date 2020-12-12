@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meet/callbacks.dart';
 import 'package:meet/util/util.dart';
-
-import 'guest_list.dart';
-import 'name_list_input.dart';
+import 'package:meet/widgets/widgets.dart';
 
 class EditableGuestList extends StatefulWidget {
   final List<String> guests;
@@ -64,7 +62,7 @@ class _EditableGuestListState extends State<EditableGuestList> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        NameListInput(
+        PasteAwareTextInput(
           onSubmitted: _onSubmitted,
         ),
         Padding(
