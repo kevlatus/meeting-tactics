@@ -82,6 +82,7 @@ class EventSetup extends StatelessWidget {
         final canContinue = (state.meeting?.attendees?.length ?? 0) > 1;
 
         return Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Align(
               alignment: Alignment.centerLeft,

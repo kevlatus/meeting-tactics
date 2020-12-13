@@ -17,20 +17,20 @@ class AppFooter extends StatelessWidget {
               spacing: 8.0,
               runSpacing: 8.0,
               children: [
-                HyperLink(
-                  href: '/privacy',
-                  color: Colors.black,
-                  child: Text('Privacy Policy'),
-                ),
-                HyperLink(
-                  href: '/legal',
-                  color: Colors.black,
-                  child: Text('Legal Notice'),
-                ),
+                // HyperLink(
+                //   href: '/privacy',
+                //   color: Colors.black,
+                //   child: Text('Privacy Policy'),
+                // ),
+                // HyperLink(
+                //   href: '/legal',
+                //   color: Colors.black,
+                //   child: Text('Legal Notice'),
+                // ),
               ],
             ),
           ),
-          Text('Made by Kev'),
+          Text('Made with ♥ by kevlatus'),
         ],
       ),
     );

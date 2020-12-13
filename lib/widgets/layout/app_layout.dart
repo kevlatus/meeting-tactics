@@ -23,17 +23,6 @@ class _SettingsButton extends StatelessWidget {
   }
 }
 
-class _AppIcon extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Image.asset(
-      'assets/images/app-icon.png',
-      width: 24,
-      height: 24,
-    );
-  }
-}
-
 class AppLayout extends StatelessWidget {
   final WidgetBuilder builder;
 
@@ -55,22 +44,10 @@ class AppLayout extends StatelessWidget {
           _SettingsButton(),
         ],
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Builder(builder: builder),
-            ]),
-          ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
-              children: [
-                Expanded(child: Container()),
-                //AppFooter(),
-              ],
-            ),
-          )
+      body: Column(
+        children: [
+          Expanded(child: Builder(builder: builder)),
+          AppFooter(),
         ],
       ),
     );

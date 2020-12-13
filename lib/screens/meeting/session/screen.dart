@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -32,14 +33,13 @@ class _ActiveMeeting extends HookWidget {
           : session.selectedSpeakers.length - 1,
     ).toList();
 
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SpeakerControls(disabled: isAnimating.value),
-            SpeakerSelectionView(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          SpeakerControls(disabled: isAnimating.value),
+          Expanded(
+            child: SpeakerSelectionView(
               attendees: session.meeting.attendees,
               unavailableAttendees: unavailableAttendees,
               direction: session.direction,
@@ -51,8 +51,8 @@ class _ActiveMeeting extends HookWidget {
                 isAnimating.value = false;
               },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

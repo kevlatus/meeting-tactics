@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppLayout(builder: (context) {
       return Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           IntroBox(),
           // TacticsBox(),

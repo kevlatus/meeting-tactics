@@ -20,12 +20,18 @@ class _MeetingSetupScreenState extends State<MeetingSetupScreen> {
     return BlocProvider(
       create: (_) => MeetingSetupCubit(),
       child: AppLayout(builder: (context) {
-        return SetupStepper(
-          onCompleted: () {
-            final event = context.bloc<MeetingSetupCubit>().state.meeting;
-            context.bloc<MeetingSessionCubit>().startNewSession(event);
-            Navigator.of(context).pushNamed(AppRouter.meetingSession);
-          },
+        return Align(
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 720),
+            child: SetupStepper(
+              onCompleted: () {
+                final event = context.bloc<MeetingSetupCubit>().state.meeting;
+                context.bloc<MeetingSessionCubit>().startNewSession(event);
+                Navigator.of(context).pushNamed(AppRouter.meetingSession);
+              },
+            ),
+          ),
         );
       }),
     );
