@@ -30,7 +30,12 @@ class AppFooter extends StatelessWidget {
               ],
             ),
           ),
-          Text('Made with ♥ by kevlatus'),
+          HyperLink(
+            href: 'https://kevlatus.de',
+            color: Colors.black,
+            decoration: TextDecoration.none,
+            child: Text('Made with ♥ by kevlatus'),
+          ),
         ],
       ),
     );
