@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:meet/screens/meeting/meeting.dart';
+import 'package:meet/util/random.dart';
+import 'package:meet/widgets/widgets.dart';
 
 class SpeakerSelectionView extends HookWidget {
   final int selected;
@@ -112,6 +114,8 @@ class _FortuneWheelSpeakerSelection extends HookWidget {
         ? FortuneWheelAnimation.None
         : FortuneWheelAnimation.Roll;
 
+    final textAngle = randomInRange(-0.4, 0.4);
+
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: 512,
@@ -126,7 +130,15 @@ class _FortuneWheelSpeakerSelection extends HookWidget {
               builder: (context, _) {
                 return Transform.scale(
                   scale: resultAnimation.value,
-                  child: Text(attendees[selected]),
+                  child: Transform.rotate(
+                    angle: textAngle,
+                    child: CircledBox(
+                      child: Text(
+                        attendees[selected],
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
+                  ),
                 );
               },
             ),

@@ -1,3 +1,4 @@
+export 'circled_box.dart';
 export 'dialogs/dialogs.dart';
 export 'hide_null.dart';
 export 'hyperlink.dart';
