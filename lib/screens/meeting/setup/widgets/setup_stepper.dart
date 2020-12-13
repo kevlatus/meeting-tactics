@@ -19,14 +19,16 @@ class SetupStepper extends StatelessWidget {
       // TimerSetup(),
     ];
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: PageStepper(
-            steps: steps,
-            onCompleted: onCompleted,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: PageStepper(
+              steps: steps,
+              onCompleted: onCompleted,
+            ),
           ),
         ),
       ),
