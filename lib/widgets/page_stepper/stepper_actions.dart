@@ -50,7 +50,7 @@ class _SimpleStepperActions extends StatelessWidget implements StepperActions {
       ),
     );
 
-    final continueButton = OutlineButton(
+    final continueButton = ElevatedButton(
       onPressed: () {
         if (canContinue == null || canContinue()) {
           stepperCubit.nextStep();
