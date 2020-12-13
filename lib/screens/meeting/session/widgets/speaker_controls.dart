@@ -36,6 +36,7 @@ class SpeakerControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonTextColor = Theme.of(context).textTheme.button.color;
     final meetingSession = Provider.of<MeetingSessionCubit>(context);
 
     final canNext = !disabled && meetingSession.state.hasNextSpeaker;
@@ -61,14 +62,14 @@ class SpeakerControls extends StatelessWidget {
     );
 
     final undoButton = TextButton.icon(
-      style: TextButton.styleFrom(primary: Colors.black),
+      style: TextButton.styleFrom(primary: buttonTextColor),
       icon: Icon(Icons.fast_rewind),
       label: Text('UNDO'),
       onPressed: canUndo ? meetingSession.previousSpeaker : null,
     );
 
     final restartButton = TextButton.icon(
-      style: TextButton.styleFrom(primary: Colors.black),
+      style: TextButton.styleFrom(primary: buttonTextColor),
       icon: Icon(Icons.skip_previous),
       label: Text('RESTART'),
       onPressed: canUndo ? meetingSession.resetSpeakers : null,

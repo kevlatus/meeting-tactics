@@ -50,11 +50,26 @@ class _FortuneWheelSpeakerSelection extends HookWidget {
 
   CircleSlice _buildCircleSlice(BuildContext context, String attendee) {
     final isUnavailable = unavailableAttendees.contains(attendee);
-    final fillColor = isUnavailable ? Colors.grey.shade400 : null;
-    final strokeColor = isUnavailable ? Colors.grey.shade600 : null;
+    final theme = Theme.of(context);
+    final fillColor = isUnavailable
+        ? Color.alphaBlend(
+            theme.disabledColor.withOpacity(0.5),
+            theme.colorScheme.surface,
+          )
+        : null;
+    final strokeColor = isUnavailable
+        ? Color.alphaBlend(
+            theme.disabledColor,
+            theme.colorScheme.surface,
+          )
+        : null;
+    final textColor = theme.colorScheme.onPrimary;
 
     return CircleSlice(
-      child: Text(attendee),
+      child: DefaultTextStyle(
+        child: Text(attendee),
+        style: TextStyle(color: textColor),
+      ),
       fillColor: fillColor,
       strokeColor: strokeColor,
     );

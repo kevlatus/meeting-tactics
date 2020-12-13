@@ -8,7 +8,7 @@ class AppFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
-      color: Colors.grey.shade100,
+      color: Theme.of(context).colorScheme.surface,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
