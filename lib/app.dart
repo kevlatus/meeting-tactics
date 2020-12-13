@@ -46,19 +46,8 @@ class _MeetAppState extends State<MeetApp> {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           onGenerateRoute: AppRouter.generator,
-          theme: ThemeData(
-            visualDensity: VisualDensity.standard,
-            primarySwatch: KevlatusColors.mint,
-            primaryColor: KevlatusColors.mint,
-            accentColor: KevlatusColors.purple,
-          ),
-          darkTheme: ThemeData(
-            visualDensity: VisualDensity.standard,
-            primarySwatch: KevlatusColors.mintForDark,
-            primaryColor: KevlatusColors.mintForDark,
-            accentColor: KevlatusColors.purpleAccent,
-            brightness: Brightness.dark,
-          ),
+          theme: lightTheme,
+          darkTheme: darkTheme,
         ),
       ),
     );
