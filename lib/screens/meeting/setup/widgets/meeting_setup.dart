@@ -1,10 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:meet/util/util.dart';
 import 'package:meet/widgets/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../bloc.dart';
+
+class _EventSetupLayout extends HookWidget {
+  final Widget child;
+
+  const _EventSetupLayout({
+    Key key,
+    this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ticker = useSingleTickerProvider();
+
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Card(
+              child: AnimatedSize(
+                vsync: ticker,
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeOut,
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: child,
+                ),
+              ),
+            ),
+            Image.asset('assets/images/ic-team-spirit.png'),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class EventSetup extends StatelessWidget {
   const EventSetup({Key key}) : super(key: key);
@@ -81,34 +119,37 @@ class EventSetup extends StatelessWidget {
       builder: (context, state) {
         final canContinue = (state.meeting?.attendees?.length ?? 0) > 1;
 
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  texts.setup_event_heading,
-                  style: theme.textTheme.headline6,
+        return _EventSetupLayout(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Text(
+                    'Who\'s gonna join you?',
+                    style: theme.textTheme.headline6,
+                  ),
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(texts.setup_event_description),
-            ),
-            PasteAwareTextInput(
-              onSubmitted: setupCubit.addAttendees,
-            ),
-            StepperActions.animated(
-              canContinue: () => canContinue,
-            ),
-            GuestList(
-              guests: state.meeting?.attendees ?? [],
-              onDelete: (attendees) => setupCubit.removeAttendees([attendees]),
-            ),
-          ],
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(texts.setup_event_description),
+              ),
+              PasteAwareTextInput(
+                onSubmitted: setupCubit.addAttendees,
+              ),
+              StepperActions.animated(
+                canContinue: () => canContinue,
+              ),
+              GuestList(
+                guests: state.meeting?.attendees ?? [],
+                onDelete: (attendees) =>
+                    setupCubit.removeAttendees([attendees]),
+              ),
+            ],
+          ),
         );
       },
     );
