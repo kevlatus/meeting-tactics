@@ -23,7 +23,7 @@ class StepperState extends Equatable {
   bool get isComplete => activeIndex >= itemCount;
 
   StepperState previousStep() {
-    return copyWith(activeIndex: activeIndex - 1);
+    return copyWith(activeIndex: activeIndex - (isComplete ? 2 : 1));
   }
 
   StepperState nextStep() {
