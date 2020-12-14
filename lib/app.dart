@@ -41,13 +41,18 @@ class _MeetAppState extends State<MeetApp> {
             create: (_) => MeetingSessionCubit(),
           ),
         ],
-        child: MaterialApp(
-          title: kAppName,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          onGenerateRoute: AppRouter.generator,
-          theme: lightTheme,
-          darkTheme: darkTheme,
+        child: ThemeModeProvider(
+          builder: (context, themeMode) {
+            return MaterialApp(
+              title: kAppName,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              onGenerateRoute: AppRouter.generator,
+              themeMode: themeMode,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+            );
+          },
         ),
       ),
     );

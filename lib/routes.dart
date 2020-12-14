@@ -20,6 +20,12 @@ final _meetingSessionHandler = Handler(
   },
 );
 
+final _settingsHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return SettingsScreen();
+  },
+);
+
 final _notFoundHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return UnknownScreen();
@@ -39,6 +45,7 @@ class AppRouter {
     _instance.define(root, handler: _rootHandler);
     _instance.define(meetingSetup, handler: _meetingSetupHandler);
     _instance.define(meetingSession, handler: _meetingSessionHandler);
+    _instance.define(settings, handler: _settingsHandler);
   }
 
   static RouteFactory get generator {

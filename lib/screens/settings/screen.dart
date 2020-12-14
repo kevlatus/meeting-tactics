@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meet/screens/settings/widgets/theme_selector.dart';
 import 'package:meet/widgets/widgets.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -14,7 +15,20 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppLayout(builder: (context) {
-      return Text('Settings');
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text('ThemeMode'),
+                Spacer(),
+                ThemeSelector(),
+              ],
+            ),
+          ],
+        ),
+      );
     });
   }
 }

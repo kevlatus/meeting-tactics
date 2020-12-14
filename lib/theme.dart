@@ -260,3 +260,50 @@ final ThemeData darkTheme = ThemeData(
   accentColor: KevlatusColors.goldAccent,
   brightness: Brightness.dark,
 );
+
+typedef ThemedBuilder = Widget Function(BuildContext, ThemeMode);
+
+abstract class ThemeManipulator {
+  ThemeMode get theme;
+
+  void changeTheme(ThemeMode mode);
+
+  static ThemeManipulator of(BuildContext context) {
+    final state = context.findAncestorStateOfType<_ThemeModeProviderState>();
+    if (state == null) {
+      throw Error();
+    }
+    return state;
+  }
+}
+
+class ThemeModeProvider extends StatefulWidget {
+  final ThemedBuilder builder;
+
+  ThemeModeProvider({
+    @required this.builder,
+  });
+
+  @override
+  _ThemeModeProviderState createState() => _ThemeModeProviderState();
+}
+
+class _ThemeModeProviderState extends State<ThemeModeProvider>
+    implements ThemeManipulator {
+  ThemeMode _mode = ThemeMode.system;
+
+  ThemeMode get theme => _mode;
+
+  void changeTheme(ThemeMode mode) {
+    setState(() {
+      _mode = mode;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: (context) => widget.builder(context, _mode),
+    );
+  }
+}
