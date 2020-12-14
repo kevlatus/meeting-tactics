@@ -5,24 +5,34 @@ import 'package:equatable/equatable.dart';
 abstract class OrderStrategy {
   T next<T>(List<T> previous, List<T> all);
 
-  const factory OrderStrategy.fixed() = _FixedOrderStrategy;
+  const factory OrderStrategy.fixed({List<int> order}) = FixedOrderStrategy;
 
-  const factory OrderStrategy.random() = _RandomOrderStrategy;
+  const factory OrderStrategy.random() = RandomOrderStrategy;
 }
 
-class _FixedOrderStrategy extends Equatable implements OrderStrategy {
-  const _FixedOrderStrategy();
+class FixedOrderStrategy extends Equatable implements OrderStrategy {
+  final List<int> order;
+
+  const FixedOrderStrategy({this.order});
 
   T next<T>(List<T> previous, List<T> all) {
+    if (this.order != null) {
+      assert(
+        order.length == all.length,
+        'Preferred fixed order does not match given array length',
+      );
+      return all[order[previous.length]];
+    }
+
     return all[previous.length];
   }
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [order];
 }
 
-class _RandomOrderStrategy extends Equatable implements OrderStrategy {
-  const _RandomOrderStrategy();
+class RandomOrderStrategy extends Equatable implements OrderStrategy {
+  const RandomOrderStrategy();
 
   @override
   T next<T>(List<T> previous, List<T> all) {

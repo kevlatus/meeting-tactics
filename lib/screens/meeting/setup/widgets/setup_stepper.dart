@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:meet/widgets/widgets.dart';
 
 import 'meeting_setup.dart';
+import 'order_setup.dart';
+import 'timer_setup.dart';
 
 class SetupStepper extends StatelessWidget {
   final VoidCallback onCompleted;
@@ -15,7 +17,7 @@ class SetupStepper extends StatelessWidget {
   Widget build(BuildContext context) {
     final steps = [
       EventSetup(),
-      // OrderSetup(),
+      OrderSetup(),
       // TimerSetup(),
     ];
 

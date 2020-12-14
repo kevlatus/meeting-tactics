@@ -1,48 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:meet/util/util.dart';
 import 'package:meet/widgets/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../bloc.dart';
-
-class _EventSetupLayout extends HookWidget {
-  final Widget child;
-
-  const _EventSetupLayout({
-    Key key,
-    this.child,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final ticker = useSingleTickerProvider();
-
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Card(
-              child: AnimatedSize(
-                vsync: ticker,
-                duration: Duration(milliseconds: 300),
-                curve: Curves.easeOut,
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: child,
-                ),
-              ),
-            ),
-            Image.asset('assets/images/ic-team-spirit.png'),
-          ],
-        ),
-      ),
-    );
-  }
-}
+import 'step_layout.dart';
 
 class EventSetup extends StatelessWidget {
   const EventSetup({Key key}) : super(key: key);
@@ -119,9 +82,9 @@ class EventSetup extends StatelessWidget {
       builder: (context, state) {
         final canContinue = (state.meeting?.attendees?.length ?? 0) > 1;
 
-        return _EventSetupLayout(
+        return StepLayout(
+          image: Image.asset('assets/images/ic-team-spirit.png'),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             children: [
               Align(
                 alignment: Alignment.centerLeft,

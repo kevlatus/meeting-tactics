@@ -26,8 +26,8 @@ class _MeetingSetupScreenState extends State<MeetingSetupScreen> {
             constraints: BoxConstraints(maxWidth: 720),
             child: SetupStepper(
               onCompleted: () {
-                final event = context.bloc<MeetingSetupCubit>().state.meeting;
-                context.bloc<MeetingSessionCubit>().startNewSession(event);
+                final setupState = context.bloc<MeetingSetupCubit>().state;
+                context.bloc<MeetingSessionCubit>().startNewSession(setupState);
                 Navigator.of(context).pushNamed(AppRouter.meetingSession);
               },
             ),

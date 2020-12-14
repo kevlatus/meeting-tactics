@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meet/models/models.dart';
+import 'package:meet/screens/meeting/meeting.dart';
 
 enum StepperDirection {
   Forward,
@@ -53,8 +54,11 @@ class MeetingSessionState extends Equatable {
 class MeetingSessionCubit extends Cubit<MeetingSessionState> {
   MeetingSessionCubit() : super(MeetingSessionState());
 
-  void startNewSession(Meeting meeting) {
-    emit(MeetingSessionState(meeting: meeting));
+  void startNewSession(MeetingSetupState setupState) {
+    emit(MeetingSessionState(
+      meeting: setupState.meeting,
+      orderStrategy: setupState.orderStrategy,
+    ));
   }
 
   void previousSpeaker() {
