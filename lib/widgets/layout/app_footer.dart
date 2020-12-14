@@ -9,34 +9,37 @@ class AppFooter extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
       color: Theme.of(context).colorScheme.surface,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: [
-                // HyperLink(
-                //   href: '/privacy',
-                //   color: Colors.black,
-                //   child: Text('Privacy Policy'),
-                // ),
-                // HyperLink(
-                //   href: '/legal',
-                //   color: Colors.black,
-                //   child: Text('Legal Notice'),
-                // ),
-              ],
+      child: DefaultTextStyle(
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: [
+                  // HyperLink(
+                  //   href: '/privacy',
+                  //   color: Colors.black,
+                  //   child: Text('Privacy Policy'),
+                  // ),
+                  // HyperLink(
+                  //   href: '/legal',
+                  //   color: Colors.black,
+                  //   child: Text('Legal Notice'),
+                  // ),
+                ],
+              ),
             ),
-          ),
-          HyperLink(
-            href: 'https://kevlatus.de',
-            color: Colors.black,
-            decoration: TextDecoration.none,
-            child: Text('Made with ♥ by kevlatus'),
-          ),
-        ],
+            HyperLink(
+              href: 'https://kevlatus.de',
+              color: Colors.black,
+              decoration: TextDecoration.none,
+              child: Text('Made with ♥ by kevlatus'),
+            ),
+          ],
+        ),
       ),
     );
   }
