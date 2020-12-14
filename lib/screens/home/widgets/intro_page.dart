@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meet/routes.dart';
 
-class IntroBox extends StatelessWidget {
-  const IntroBox({
+class IntroPage extends StatelessWidget {
+  final VoidCallback onNextPage;
+
+  const IntroPage({
     Key key,
+    this.onNextPage,
   }) : super(key: key);
 
   @override
@@ -16,6 +19,7 @@ class IntroBox extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       color: theme.primaryColor.withAlpha(30),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             texts.home_greeting_line_1,
@@ -33,6 +37,17 @@ class IntroBox extends StatelessWidget {
             child: Text(texts.home_quick_start),
             onPressed: () async {
               Navigator.of(context).pushNamed(AppRouter.meetingSetup);
+            },
+          ),
+          Expanded(
+            child: Image.asset('assets/images/ic-virtual-meeting.png'),
+          ),
+          OutlinedButton(
+            child: Text('or learn more...'),
+            onPressed: () {
+              if (onNextPage != null) {
+                onNextPage();
+              }
             },
           ),
         ],
