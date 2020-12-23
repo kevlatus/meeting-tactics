@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:meet/constants.dart';
 import 'package:meet/routes.dart';
+import 'package:meet/widgets/layout/app_header.dart';
 
 import 'app_footer.dart';
 
@@ -34,12 +35,9 @@ class AppLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Text(kAppName),
-          ],
-        ),
+      appBar: buildAppHeader(
+        context: context,
+        title: Text(kAppName),
         actions: [
           _SettingsButton(),
         ],
