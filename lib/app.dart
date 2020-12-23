@@ -19,27 +19,24 @@ class MeetApp extends StatefulWidget {
 class _MeetAppState extends State<MeetApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (_) => MeetingSessionCubit(),
-          ),
-        ],
-        child: ThemeModeProvider(
-          builder: (context, themeMode) {
-            return MaterialApp(
-              title: kAppName,
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-              onGenerateRoute: AppRouter.generator,
-              themeMode: themeMode,
-              theme: lightTheme,
-              darkTheme: darkTheme,
-            );
-          },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => MeetingSessionCubit(),
         ),
+      ],
+      child: ThemeModeProvider(
+        builder: (context, themeMode) {
+          return MaterialApp(
+            title: kAppName,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            onGenerateRoute: AppRouter.generator,
+            themeMode: themeMode,
+            theme: lightTheme,
+            darkTheme: darkTheme,
+          );
+        },
       ),
     );
   }
