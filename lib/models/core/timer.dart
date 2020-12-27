@@ -1,70 +1,72 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 
-abstract class SpeakerTimer<T> extends Equatable {
-  const SpeakerTimer();
-
-  String get label;
-
-  T get options;
-
-  SpeakerTimer<T> copyWith({T options});
+abstract class TimerStrategy {
+  Duration getTimer(int index);
 }
 
-class NoTimer extends SpeakerTimer<void> {
-  final String label = 'No Timer';
-  final void options = null;
-
-  const NoTimer();
-
-  NoTimer copyWith({void options}) => this;
+class NoTimerStrategy extends Equatable implements TimerStrategy {
+  const NoTimerStrategy();
 
   @override
-  List<Object> get props => [label];
-}
-
-class FixedDurationTimer extends SpeakerTimer<Duration> {
-  final String label = 'Fixed Duration';
-  final Duration options;
-
-  const FixedDurationTimer({
-    this.options = const Duration(minutes: 3),
-  });
-
-  FixedDurationTimer copyWith({Duration options}) =>
-      FixedDurationTimer(options: options ?? this.options);
+  Duration getTimer(int index) => null;
 
   @override
-  List<Object> get props => [label, options];
+  List<Object> get props => [];
 }
 
-class DurationRange extends Equatable {
+class FixedTimerStrategy extends Equatable implements TimerStrategy {
+  final List<Duration> durations;
+
+  const FixedTimerStrategy._(this.durations)
+      : assert(durations != null && durations.length > 0);
+
+  FixedTimerStrategy.single({@required Duration duration})
+      : this._(<Duration>[duration]);
+
+  const FixedTimerStrategy.multi({
+    @required List<Duration> durations,
+  }) : this._(durations);
+
+  @override
+  Duration getTimer(int index) {
+    assert(durations.length > index);
+
+    if (durations.length == 1) {
+      return durations.first;
+    } else {
+      return durations[index];
+    }
+  }
+
+  FixedTimerStrategy copyWith({List<Duration> durations}) =>
+      FixedTimerStrategy._(durations ?? this.durations);
+
+  @override
+  List<Object> get props => [durations];
+}
+
+class RandomTimerStrategy extends Equatable implements TimerStrategy {
   final Duration min;
   final Duration max;
 
-  const DurationRange({
+  const RandomTimerStrategy({
     @required this.min,
     @required this.max,
   });
 
   @override
-  List<Object> get props => [min, max];
-}
+  Duration getTimer(int index) {
+    return Fortune.randomDuration(min, max);
+  }
 
-class RandomDurationTimer extends SpeakerTimer<DurationRange> {
-  final String label = 'Random Duration';
-  final DurationRange options;
-
-  const RandomDurationTimer({
-    this.options = const DurationRange(
-      min: Duration(minutes: 2),
-      max: Duration(minutes: 5),
-    ),
-  });
-
-  RandomDurationTimer copyWith({DurationRange options}) =>
-      RandomDurationTimer(options: options ?? this.options);
+  RandomTimerStrategy copyWith({Duration min, Duration max}) =>
+      RandomTimerStrategy(
+        min: min ?? this.min,
+        max: max ?? this.max,
+      );
 
   @override
-  List<Object> get props => [label, options];
+  List<Object> get props => [min, max];
 }

@@ -49,12 +49,14 @@ class DuplicateHint extends SetupHint implements InvalidNameSetupHint {
 class MeetingSetupState extends Equatable {
   final Meeting meeting;
   final OrderStrategy orderStrategy;
+  final TimerStrategy timerStrategy;
   final List<SetupHint> hints;
 
   const MeetingSetupState({
     this.meeting = const Meeting(),
     this.hints = const <SetupHint>[],
     this.orderStrategy = const OrderStrategy.random(),
+    this.timerStrategy = const NoTimerStrategy(),
   });
 
   Iterable<SetupHint> getHintsByType(Type type) =>
@@ -66,15 +68,17 @@ class MeetingSetupState extends Equatable {
     Meeting meeting,
     List<SetupHint> hints,
     OrderStrategy orderStrategy,
+    TimerStrategy timerStrategy,
   }) =>
       MeetingSetupState(
         meeting: meeting ?? this.meeting,
         hints: hints ?? this.hints,
         orderStrategy: orderStrategy ?? this.orderStrategy,
+        timerStrategy: timerStrategy ?? this.timerStrategy,
       );
 
   @override
-  List<Object> get props => [meeting, hints, orderStrategy];
+  List<Object> get props => [meeting, hints, orderStrategy, timerStrategy];
 }
 
 class MeetingSetupCubit extends Cubit<MeetingSetupState> {
@@ -98,6 +102,10 @@ class MeetingSetupCubit extends Cubit<MeetingSetupState> {
 
   void changeOrderStrategy(OrderStrategy strategy) {
     emit(state.copyWith(orderStrategy: strategy));
+  }
+
+  void changeTimerStrategy(TimerStrategy strategy) {
+    emit(state.copyWith(timerStrategy: strategy));
   }
 
   void updateAttendees(Iterable<String> attendees) {

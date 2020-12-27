@@ -2,6 +2,7 @@ export 'circled_box.dart';
 export 'dialogs/dialogs.dart';
 export 'hide_null.dart';
 export 'hyperlink.dart';
+export 'icon_text_toggle_buttons.dart';
 export 'layout/layout.dart';
 export 'meeting/meeting.dart';
 export 'page_stepper/page_stepper.dart';

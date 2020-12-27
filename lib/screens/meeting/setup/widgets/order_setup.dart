@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meet/callbacks.dart';
 import 'package:meet/models/models.dart';
 import 'package:meet/screens/meeting/setup/widgets/step_layout.dart';
+import 'package:meet/widgets/icon_text_toggle_buttons.dart';
 import 'package:meet/widgets/page_stepper/page_stepper.dart';
 
 import '../bloc.dart';
@@ -10,22 +11,6 @@ import '../bloc.dart';
 class OrderStrategySelector extends StatelessWidget {
   final OrderStrategy selected;
   final Callback<OrderStrategy> onChanged;
-
-  Widget _buildItem(BuildContext context, Widget icon, Widget text) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: 96),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: icon,
-          ),
-          text,
-        ],
-      ),
-    );
-  }
 
   const OrderStrategySelector({
     Key key,
@@ -35,31 +20,22 @@ class OrderStrategySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ToggleButtons(
-      borderRadius: BorderRadius.circular(4),
-      isSelected: [
-        selected is FixedOrderStrategy,
-        selected is RandomOrderStrategy,
-      ],
-      children: [
-        _buildItem(
-          context,
-          Icon(Icons.linear_scale),
-          Text('Fixed'),
+    return IconTextToggleButtons(
+      selected: selected,
+      matcher: (v) => v.runtimeType == selected.runtimeType,
+      items: [
+        IconTextToggleButton(
+          icon: Icon(Icons.linear_scale),
+          text: 'Fixed',
+          value: OrderStrategy.fixed(),
         ),
-        _buildItem(
-          context,
-          Icon(Icons.shuffle),
-          Text('Random'),
+        IconTextToggleButton(
+          icon: Icon(Icons.shuffle),
+          text: 'Random',
+          value: OrderStrategy.random(),
         ),
       ],
-      onPressed: (int index) {
-        if (onChanged != null) {
-          onChanged(
-            index == 0 ? OrderStrategy.fixed() : OrderStrategy.random(),
-          );
-        }
-      },
+      onChanged: onChanged,
     );
   }
 }

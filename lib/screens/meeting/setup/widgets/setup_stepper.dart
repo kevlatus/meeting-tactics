@@ -18,7 +18,7 @@ class SetupStepper extends StatelessWidget {
     final steps = [
       EventSetup(),
       OrderSetup(),
-      // TimerSetup(),
+      TimerSetup(),
     ];
 
     return PageStepper(
