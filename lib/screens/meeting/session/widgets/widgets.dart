@@ -1,2 +1,2 @@
 export 'speaker_controls.dart';
-export 'speaker_selection_view.dart';
+export 'speaker_view/speaker_view.dart';

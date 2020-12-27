@@ -27,31 +27,36 @@ class _ActiveMeeting extends HookWidget {
   Widget build(BuildContext context) {
     final isAnimating = useState(false);
 
-    final unavailableAttendees = session.selectedSpeakers.take(
-      session.selectedSpeakers.isEmpty
-          ? 0
-          : session.selectedSpeakers.length - 1,
-    ).toList();
+    final unavailableAttendees = session.selectedSpeakers
+        .take(
+          session.selectedSpeakers.isEmpty
+              ? 0
+              : session.selectedSpeakers.length - 1,
+        )
+        .toList();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           SpeakerControls(disabled: isAnimating.value),
-          Expanded(
-            child: SpeakerSelectionView(
-              attendees: session.meeting.attendees,
-              unavailableAttendees: unavailableAttendees,
-              direction: session.direction,
-              selected: session.selectedSpeakerIndex,
-              onAnimationStart: () {
-                isAnimating.value = true;
-              },
-              onAnimationEnd: () {
-                isAnimating.value = false;
-              },
+          if (session.selectedSpeakerIndex == null)
+            Expanded(child: Text('Thinking Face'))
+          else
+            Expanded(
+              child: WheelSpeakerView(
+                attendees: session.meeting.attendees,
+                unavailableAttendees: unavailableAttendees,
+                direction: session.direction,
+                selected: session.selectedSpeakerIndex,
+                onAnimationStart: () {
+                  isAnimating.value = true;
+                },
+                onAnimationEnd: () {
+                  isAnimating.value = false;
+                },
+              ),
             ),
-          ),
         ],
       ),
     );
