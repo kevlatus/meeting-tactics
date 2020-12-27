@@ -90,13 +90,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.5"
-  flutter_duration_picker:
-    dependency: "direct main"
-    description:
-      name: flutter_duration_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
   flutter_fortune_wheel:
     dependency: "direct main"
     description:

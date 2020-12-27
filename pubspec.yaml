@@ -15,12 +15,9 @@ dependencies:
     sdk: flutter
 
   bloc: ^6.0.0
-#  calendar_service:
-#    path: packages/calendar_service.dart
   equatable: ^1.2.3
   fluro: ^1.7.8
   flutter_bloc: ^6.0.0
-  flutter_duration_picker: ^1.0.4
   flutter_fortune_wheel: ^0.2.1
   flutter_hooks: ^0.15.0
   flutter_svg: ^0.19.2+1

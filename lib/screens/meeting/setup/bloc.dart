@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meet/models/models.dart';
+import 'package:meet/timer/timer.dart';
 import 'package:meta/meta.dart';
 
 const List<String> _blackList = <String>[
