@@ -42,10 +42,26 @@ class AppRouter {
 
   static void _configureRoutes() {
     _instance.notFoundHandler = _notFoundHandler;
-    _instance.define(root, handler: _rootHandler);
-    _instance.define(meetingSetup, handler: _meetingSetupHandler);
-    _instance.define(meetingSession, handler: _meetingSessionHandler);
-    _instance.define(settings, handler: _settingsHandler);
+    _instance.define(
+      root,
+      handler: _rootHandler,
+      transitionType: TransitionType.fadeIn,
+    );
+    _instance.define(
+      meetingSetup,
+      handler: _meetingSetupHandler,
+      transitionType: TransitionType.fadeIn,
+    );
+    _instance.define(
+      meetingSession,
+      handler: _meetingSessionHandler,
+      transitionType: TransitionType.fadeIn,
+    );
+    _instance.define(
+      settings,
+      handler: _settingsHandler,
+      transitionType: TransitionType.fadeIn,
+    );
   }
 
   static RouteFactory get generator {
