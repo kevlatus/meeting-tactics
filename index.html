@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-    <meta name="description" content="Tactics for improving meeting efficiency by randomness and gamification.">
+    <meta name="description"
+          content="Tactics for improving meeting efficiency by randomness and gamification.">
     <title>Meeting Tactics</title>
 
     <link rel="manifest" href="/manifest.json">
@@ -34,8 +35,8 @@
     <meta name="msapplication-TileColor" content="#00A775">
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
 
-    <meta name="google-signin-client_id"
-          content="1057214028400-e9hrnkour45llj2pnt8ogkagmkrvni5q.apps.googleusercontent.com">
+    <!--    <meta name="google-signin-client_id"-->
+    <!--          content="1057214028400-e9hrnkour45llj2pnt8ogkagmkrvni5q.apps.googleusercontent.com">-->
 </head>
 <body>
 <!-- This script installs service_worker.js to provide PWA functionality to
@@ -44,24 +45,10 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('flutter-first-frame', function () {
-            navigator.serviceWorker.register('flutter_service_worker.js?v=4087735026');
+            navigator.serviceWorker.register('flutter_service_worker.js?v=1137603260');
         });
     }
-</script>
-<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
-<script id="firebase-config">
-    var firebaseConfig = {
-        apiKey: "AIzaSyBVIFcmfI7Qy6SEp9sJ7P2oEWtiErY6Il8",
-        authDomain: "fun-meetings-dev.firebaseapp.com",
-        databaseURL: "https://fun-meetings-dev.firebaseio.com",
-        projectId: "fun-meetings-dev",
-        storageBucket: "fun-meetings-dev.appspot.com",
-        messagingSenderId: "1057214028400",
-        appId: "1:1057214028400:web:6878a3c45f2a22a04872b5",
-        measurementId: "G-YTNY63DZC7",
-    };
-    firebase.initializeApp(firebaseConfig);
+
 </script>
 <script src="main.dart.js" type="application/javascript"></script>
 </body>
