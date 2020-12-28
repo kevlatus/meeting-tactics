@@ -15,7 +15,7 @@ class FixedTimerStrategy extends Equatable implements TimerStrategy {
 
   @override
   Duration getTimer(int index) {
-    assert(durations.length > index);
+    assert(durations.length == 1 || durations.length > index);
 
     if (durations.length == 1) {
       return durations.first;

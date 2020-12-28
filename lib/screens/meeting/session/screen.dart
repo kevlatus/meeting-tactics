@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:meet/routes.dart';
 import 'package:meet/screens/meeting/meeting.dart';
+import 'package:meet/timer/timer.dart';
 import 'package:meet/widgets/widgets.dart';
 
 import 'widgets/widgets.dart';
@@ -18,7 +19,7 @@ class _MeetingNotInitialized extends StatelessWidget {
 class _ActiveMeeting extends HookWidget {
   final MeetingSessionState session;
 
-  const _ActiveMeeting({
+  _ActiveMeeting({
     Key key,
     @required this.session,
   }) : super(key: key);
@@ -26,39 +27,41 @@ class _ActiveMeeting extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isAnimating = useState(false);
+    final controller = useCountdownController();
 
-    final unavailableAttendees = session.selectedSpeakers
-        .take(
-          session.selectedSpeakers.isEmpty
-              ? 0
-              : session.selectedSpeakers.length - 1,
-        )
-        .toList();
+    useValueChanged(session.speakerIndex, (_, __) {
+      controller.stop();
+    });
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          SpeakerControls(disabled: isAnimating.value),
-          if (session.selectedSpeakerIndex == null)
-            Expanded(child: Text('Thinking Face'))
-          else
-            Expanded(
-              child: WheelSpeakerView(
-                attendees: session.meeting.attendees,
-                unavailableAttendees: unavailableAttendees,
-                direction: session.direction,
-                selected: session.selectedSpeakerIndex,
-                onAnimationStart: () {
-                  isAnimating.value = true;
-                },
-                onAnimationEnd: () {
-                  isAnimating.value = false;
-                },
-              ),
+    return Column(
+      children: [
+        SpeakerControls(disabled: isAnimating.value),
+        if (session.speakerIndex == null)
+          Expanded(child: Text('Thinking Face'))
+        else
+          Expanded(
+            child: WheelSpeakerView(
+              attendees: session.meeting.attendees,
+              unavailableAttendees: session.previousSpeakers,
+              direction: session.direction,
+              selected: session.speakerIndex,
+              onAnimationStart: () {
+                isAnimating.value = true;
+              },
+              onAnimationEnd: () {
+                isAnimating.value = false;
+
+                if (session.direction == StepperDirection.Forward) {
+                  controller.start(
+                    session.timer.getTimer(session.speakerIndex),
+                  );
+                }
+              },
             ),
-        ],
-      ),
+          ),
+        if (session.timer != null && !(session.timer is NoTimerStrategy))
+          CountdownBar(controller: controller),
+      ],
     );
   }
 }
