@@ -51,7 +51,8 @@ class _ActiveMeeting extends HookWidget {
               onAnimationEnd: () {
                 isAnimating.value = false;
 
-                if (session.direction == StepperDirection.Forward) {
+                if (session.direction == StepperDirection.Forward &&
+                    !(session.timer is NoTimerStrategy)) {
                   controller.start(
                     session.timer.getTimer(session.speakerIndex),
                   );
