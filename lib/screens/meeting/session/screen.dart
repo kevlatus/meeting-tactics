@@ -34,6 +34,7 @@ class _ActiveMeeting extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isAnimating = useState(false);
+    final ticker = useSingleTickerProvider();
     final controller = useCountdownController();
 
     useValueChanged(session.speakerIndex, (_, __) {
@@ -72,7 +73,11 @@ class _ActiveMeeting extends HookWidget {
             ),
           ),
         if (session.timer != null && !(session.timer is NoTimerStrategy))
-          CountdownBar(controller: controller),
+          AnimatedSize(
+            vsync: ticker,
+            duration: Duration(milliseconds: 300),
+            child: CountdownBar(controller: controller),
+          ),
       ],
     );
   }
