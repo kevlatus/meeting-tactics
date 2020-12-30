@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meet/routes.dart';
+import 'package:meet/widgets/widgets.dart';
 
 class IntroPage extends StatelessWidget {
   final VoidCallback onNextPage;
@@ -40,7 +41,9 @@ class IntroPage extends StatelessWidget {
             },
           ),
           Expanded(
-            child: Image.asset('assets/images/ic-virtual-meeting.png'),
+            child: SvgOrPngImage(
+              'assets/images/img-flexiple-virtual-office-girl.png',
+            ),
           ),
           OutlinedButton(
             child: Text('or learn more...'),

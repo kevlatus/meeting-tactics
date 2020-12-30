@@ -18,7 +18,7 @@ class TimerSetup extends StatelessWidget {
         }
 
         return StepLayout(
-          image: Image.asset('assets/images/ic-time-management.png'),
+          image: SvgOrPngImage('assets/images/img-undraw-time-management.png'),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

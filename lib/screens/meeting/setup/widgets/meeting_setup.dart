@@ -83,7 +83,7 @@ class EventSetup extends StatelessWidget {
         final canContinue = (state.meeting?.attendees?.length ?? 0) > 1;
 
         return StepLayout(
-          image: Image.asset('assets/images/ic-team-spirit.png'),
+          image: SvgOrPngImage('assets/images/img-undraw-team-spirit.png'),
           child: Column(
             children: [
               Align(

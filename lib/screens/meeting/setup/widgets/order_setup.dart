@@ -5,6 +5,7 @@ import 'package:meet/models/models.dart';
 import 'package:meet/screens/meeting/setup/widgets/step_layout.dart';
 import 'package:meet/widgets/icon_text_toggle_buttons.dart';
 import 'package:meet/widgets/page_stepper/page_stepper.dart';
+import 'package:meet/widgets/svg_or_png_image.dart';
 
 import '../bloc.dart';
 
@@ -48,7 +49,7 @@ class OrderSetup extends StatelessWidget {
         final theme = Theme.of(context);
 
         return StepLayout(
-          image: Image.asset('assets/images/ic-filter-people.png'),
+          image: SvgOrPngImage('assets/images/img-undraw-filter.png'),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
