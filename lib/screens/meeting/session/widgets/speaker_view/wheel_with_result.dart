@@ -43,9 +43,9 @@ class WheelWithResultSpeakerView extends HookWidget {
       ),
     );
 
-    final animationType = direction == StepperDirection.Backward
-        ? FortuneAnimation.None
-        : FortuneAnimation.Spin;
+    final curve = direction == StepperDirection.Backward
+        ? FortuneCurve.none
+        : FortuneCurve.spin;
 
     final textAngle = randomInRange(-0.4, 0.4);
 
@@ -76,7 +76,7 @@ class WheelWithResultSpeakerView extends HookWidget {
               scale: rollAnimation.value,
               child: FortuneWheel(
                 selected: selected,
-                animationType: animationType,
+                curve: curve,
                 onAnimationStart: onAnimationStart,
                 onAnimationEnd: () async {
                   animationCtrl.forward();

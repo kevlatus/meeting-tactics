@@ -18,7 +18,7 @@ dependencies:
   equatable: ^1.2.3
   fluro: ^1.7.8
   flutter_bloc: ^6.0.0
-  flutter_fortune_wheel: ^0.2.1
+  flutter_fortune_wheel: ^0.2.2
   flutter_hooks: ^0.15.0
   provider: ^4.1.3
   url_launcher: ^5.7.10

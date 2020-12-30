@@ -20,15 +20,18 @@ class WheelSpeakerView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final animationType = direction == StepperDirection.Backward
-        ? FortuneAnimation.None
-        : FortuneAnimation.Spin;
+    final curve = direction == StepperDirection.Backward
+        ? FortuneCurve.none
+        : FortuneCurve.spin;
 
     return FortuneWheel(
       selected: selected ?? 0,
-      animationType: animationType,
+      curve: curve,
       onAnimationStart: onAnimationStart,
       onAnimationEnd: onAnimationEnd,
+      duration: direction == StepperDirection.Forward
+          ? Duration(seconds: 3)
+          : Duration.zero,
       items: [
         for (String attendee in attendees) FortuneItem(child: Text(attendee))
       ],

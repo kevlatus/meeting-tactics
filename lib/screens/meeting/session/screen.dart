@@ -42,29 +42,33 @@ class _ActiveMeeting extends HookWidget {
 
     return Column(
       children: [
+        SizedBox(height: 8),
         SpeakerControls(disabled: isAnimating.value),
         if (session.speakerIndex == null)
           Expanded(child: LobbyScreen())
         else
           Expanded(
-            child: WheelSpeakerView(
-              attendees: session.meeting.attendees,
-              unavailableAttendees: session.previousSpeakers,
-              direction: session.direction,
-              selected: session.speakerIndex,
-              onAnimationStart: () {
-                isAnimating.value = true;
-              },
-              onAnimationEnd: () {
-                isAnimating.value = false;
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: WheelSpeakerView(
+                attendees: session.meeting.attendees,
+                unavailableAttendees: session.previousSpeakers,
+                direction: session.direction,
+                selected: session.speakerIndex,
+                onAnimationStart: () {
+                  isAnimating.value = true;
+                },
+                onAnimationEnd: () {
+                  isAnimating.value = false;
 
-                if (session.direction == StepperDirection.Forward &&
-                    !(session.timer is NoTimerStrategy)) {
-                  controller.start(
-                    session.timer.getTimer(session.speakerIndex),
-                  );
-                }
-              },
+                  if (session.direction == StepperDirection.Forward &&
+                      !(session.timer is NoTimerStrategy)) {
+                    controller.start(
+                      session.timer.getTimer(session.speakerIndex),
+                    );
+                  }
+                },
+              ),
             ),
           ),
         if (session.timer != null && !(session.timer is NoTimerStrategy))
