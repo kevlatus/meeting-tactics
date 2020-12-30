@@ -35,14 +35,14 @@ class _ItemSelectionDialog extends HookWidget {
       onPressed: () {
         Navigator.pop(context, <String>[]);
       },
-      child: Text("CANCEL"),
+      child: Text("NO"),
     );
 
     Widget confirmButton = ElevatedButton(
       onPressed: () {
         Navigator.pop(context, selected.value);
       },
-      child: Text("CONFIRM"),
+      child: Text("YES"),
     );
 
     final size = MediaQuery.of(context).size;
