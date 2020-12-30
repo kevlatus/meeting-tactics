@@ -30,7 +30,7 @@ const RESOURCES = {
 "icons/apple-icon-144x144.png": "9f9e31821ad031da65f1c90285fdf632",
 "icons/android-icon-192x192.png": "c848d39d29ca29558e88f2204127970e",
 "manifest.json": "1688810cb65ab766c71f8411a4d50831",
-"assets/NOTICES": "0a1a911d1a1b87602d99951f742ead66",
+"assets/NOTICES": "1a1982742163b4b602b0b6c515d86e80",
 "assets/assets/images/app-icon.png": "a0407d6fc0269b96414567750a4d7487",
 "assets/assets/images/img-undraw-team-spirit.png": "3a707a66197d67f34c4dc77c18addc5a",
 "assets/assets/images/img-undraw-filter.png": "cd8f429e8e2a596aad772a8a5f5f49f8",
@@ -45,10 +45,10 @@ const RESOURCES = {
 "assets/AssetManifest.json": "a1079222c47ba8d9f0e8c441d2fd60bd",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
-"index.html": "104a0214fa6db7101b05a47a34a16483",
-"/": "104a0214fa6db7101b05a47a34a16483",
+"index.html": "a042df19842ce9ccdce60d49c885e566",
+"/": "a042df19842ce9ccdce60d49c885e566",
 "version.json": "cc4d1b379d77484cd8754c0d59785c87",
-"main.dart.js": "6877507a03d130ce687c927c503e5866",
+"main.dart.js": "841e801f64bac3b64e6b1c41205f4943",
 "browserconfig.xml": "653d077300a12f09a69caeea7a8947f8"
 };
 
