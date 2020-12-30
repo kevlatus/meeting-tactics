@@ -159,7 +159,7 @@ class CountdownBar extends HookWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final widthAnimation = controller.animation.drive(
-            Tween(begin: constraints.maxWidth, end: 0),
+            Tween(begin: constraints.maxWidth, end: 0.0),
           );
 
           return AnimatedBuilder(
