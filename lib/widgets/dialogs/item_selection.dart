@@ -1,10 +1,25 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:meet/settings/settings.dart';
 
-class _ItemSelectionDialog extends HookWidget {
+class ItemSelectionResult<T> extends Equatable {
+  final List<T> items;
+  final bool always;
+
+  const ItemSelectionResult(
+    this.items, {
+    this.always = false,
+  });
+
+  @override
+  List<Object> get props => [items, always];
+}
+
+class _ItemSelectionDialog<T> extends HookWidget {
   final String title;
   final String message;
-  final List<String> items;
+  final Iterable<T> items;
 
   const _ItemSelectionDialog({
     @required this.title,
@@ -18,31 +33,41 @@ class _ItemSelectionDialog extends HookWidget {
   Widget build(BuildContext context) {
     final selected = useState([...items]);
 
-    bool isSelected(String item) => selected.value.contains(item);
+    bool isSelected(T item) => selected.value.contains(item);
 
-    void selectItem(String item) {
+    void selectItem(T item) {
       selected.value = [...selected.value, item];
     }
 
-    void deselectItem(String item) {
+    void deselectItem(T item) {
       selected.value = [
         for (var it in selected.value)
           if (it != item) it
       ];
     }
 
-    Widget cancelButton = FlatButton(
+    Widget noButton = FlatButton(
       onPressed: () {
-        Navigator.pop(context, <String>[]);
+        Navigator.pop(context, ItemSelectionResult(<DenyListEntry>[]));
       },
-      child: Text("NO"),
+      child: Text("No"),
     );
 
-    Widget confirmButton = ElevatedButton(
+    Widget yesAlwaysButton = TextButton(
       onPressed: () {
-        Navigator.pop(context, selected.value);
+        Navigator.pop(
+          context,
+          ItemSelectionResult(selected.value, always: true),
+        );
       },
-      child: Text("YES"),
+      child: Text("Yes, always"),
+    );
+
+    Widget yesButton = ElevatedButton(
+      onPressed: () {
+        Navigator.pop(context, ItemSelectionResult(selected.value));
+      },
+      child: Text("Yes"),
     );
 
     final size = MediaQuery.of(context).size;
@@ -65,10 +90,10 @@ class _ItemSelectionDialog extends HookWidget {
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                final item = items[index];
+                final item = items.elementAt(index);
                 return ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text(items[index]),
+                  title: Text(items.elementAt(index).toString()),
                   trailing: Checkbox(
                     value: isSelected(item),
                     onChanged: (value) {
@@ -86,24 +111,25 @@ class _ItemSelectionDialog extends HookWidget {
         ],
       ),
       actions: [
-        cancelButton,
-        confirmButton,
+        noButton,
+        yesAlwaysButton,
+        yesButton,
       ],
     );
   }
 }
 
-Future<Iterable<String>> showItemSelectionDialog({
+Future<ItemSelectionResult<T>> showItemSelectionDialog<T>({
   @required BuildContext context,
   @required String title,
   @required String message,
-  @required List<String> items,
+  @required Iterable<T> items,
 }) async {
   assert(context != null);
 
-  final result = await showDialog<Iterable<String>>(
+  final result = await showDialog<ItemSelectionResult<T>>(
     context: context,
-    builder: (context) => _ItemSelectionDialog(
+    builder: (context) => _ItemSelectionDialog<T>(
       title: title,
       message: message,
       items: items,

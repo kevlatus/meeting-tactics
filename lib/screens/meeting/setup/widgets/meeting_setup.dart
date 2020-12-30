@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meet/util/util.dart';
+import 'package:meet/settings/settings.dart';
 import 'package:meet/widgets/widgets.dart';
 
 import '../bloc.dart';
@@ -16,30 +16,47 @@ class EventSetup extends StatelessWidget {
 
     return BlocConsumer<MeetingSetupCubit, MeetingSetupState>(
       listener: (context, state) async {
-        final hints = <InvalidNameSetupHint>[
-          ...state.getHintsByType(BlacklistHint),
-          ...state.getHintsByType(DuplicateHint),
-        ];
+        final duplicateHints = state.hints.whereType<DuplicateHint>();
+        final denyListHints = state.hints.whereType<DenyListHint>();
 
-        if (hints.isEmpty) return;
+        if (duplicateHints.isEmpty && denyListHints.isEmpty) return;
 
         final cubit = context.bloc<MeetingSetupCubit>();
-        cubit.dismissHints(hints);
+        cubit.dismissHints(duplicateHints);
+        cubit.dismissHints(denyListHints);
 
-        final names = [for (var hint in hints) hint.name];
-        final removeItems = (await showItemSelectionDialog(
-              context: context,
-              title: 'Hint',
-              message: 'We found duplicated and/or blacklisted names. '
-                  'Shall we remove them?',
-              items: removeDuplicates(names),
-            )) ??
-            [];
+        final implicitDenyList = [
+          for (var hint in duplicateHints)
+            DenyListEntry(hint.name, keepFirst: true),
+          for (var hint in denyListHints)
+            DenyListEntry(hint.name, keepFirst: false),
+        ].toSet();
 
-        final duplicatedNames = [for (var it in hints) it.name];
+        final settings = context.repository<SettingsRepository>().meetingSetup;
+        final storedDenyList = settings.get().denyList;
+        final promptNames = implicitDenyList.difference(storedDenyList);
 
-        for (var it in removeItems) {
-          cubit.removeAttendees([it], keepFirst: duplicatedNames.contains(it));
+        final promptResult = promptNames.isEmpty
+            ? ItemSelectionResult(List<DenyListEntry>.empty(), always: false)
+            : await showItemSelectionDialog(
+                context: context,
+                title: 'Hint',
+                message: 'We found duplicated and/or blocked names. '
+                    'Shall we remove them?',
+                items: promptNames,
+              );
+
+        final removeValues = [
+          ...storedDenyList,
+          ...promptResult.items,
+        ];
+
+        for (var it in removeValues) {
+          cubit.removeAttendees([it.name], keepFirst: it.keepFirst);
+        }
+
+        if (promptResult.always) {
+          settings.addToDenyList(promptResult.items);
         }
       },
       builder: (context, state) {

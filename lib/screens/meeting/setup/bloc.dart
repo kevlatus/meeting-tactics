@@ -4,7 +4,7 @@ import 'package:meet/models/models.dart';
 import 'package:meet/timer/timer.dart';
 import 'package:meta/meta.dart';
 
-const List<String> _blackList = <String>[
+const List<String> _denyList = <String>[
   'Organisator',
   'Organizer',
 ];
@@ -18,14 +18,14 @@ abstract class SetupHint extends Equatable {
   });
 }
 
-abstract class InvalidNameSetupHint extends SetupHint {
+abstract class InvalidNameHint extends SetupHint {
   String get name;
 }
 
-class BlacklistHint extends SetupHint implements InvalidNameSetupHint {
+class DenyListHint extends SetupHint implements InvalidNameHint {
   final String name;
 
-  const BlacklistHint({
+  const DenyListHint({
     @required this.name,
     int step,
   }) : super(step: step);
@@ -34,7 +34,7 @@ class BlacklistHint extends SetupHint implements InvalidNameSetupHint {
   List<Object> get props => [step, name];
 }
 
-class DuplicateHint extends SetupHint implements InvalidNameSetupHint {
+class DuplicateHint extends SetupHint implements InvalidNameHint {
   final String name;
 
   const DuplicateHint({
@@ -60,10 +60,9 @@ class MeetingSetupState extends Equatable {
     this.timerStrategy = const NoTimerStrategy(),
   });
 
-  Iterable<SetupHint> getHintsByType(Type type) =>
-      hints.where((element) => element.runtimeType == type);
+  Iterable<T> getHintsByType<T extends SetupHint>() => hints.whereType<T>();
 
-  bool hasHint(Type type) => getHintsByType(type).isNotEmpty;
+  bool hasHint<T extends SetupHint>() => getHintsByType<T>().isNotEmpty;
 
   MeetingSetupState copyWith({
     Meeting meeting,
@@ -145,10 +144,10 @@ class MeetingSetupCubit extends Cubit<MeetingSetupState> {
     ];
 
     final newHints = <SetupHint>[];
-    final blacklisted = attendees.where((it) => _blackList.contains(it));
-    if (blacklisted.isNotEmpty) {
+    final deniedItems = attendees.where((it) => _denyList.contains(it));
+    if (deniedItems.isNotEmpty) {
       newHints.addAll([
-        for (var it in blacklisted) BlacklistHint(name: it),
+        for (var it in deniedItems) DenyListHint(name: it),
       ]);
     }
 
