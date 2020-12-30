@@ -53,26 +53,27 @@ class OrderSetup extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  'Who\'s next?',
-                  style: theme.textTheme.headline6,
+              Text(
+                'Who\'s next?',
+                style: theme.textTheme.headline6,
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Define the order in which participants will give their '
+                'updates. Use random for best effect.',
+              ),
+              SizedBox(height: 16),
+              Center(
+                child: OrderStrategySelector(
+                  selected: state.orderStrategy,
+                  onChanged: (value) {
+                    context
+                        .bloc<MeetingSetupCubit>()
+                        .changeOrderStrategy(value);
+                  },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Center(
-                  child: OrderStrategySelector(
-                    selected: state.orderStrategy,
-                    onChanged: (value) {
-                      context
-                          .bloc<MeetingSetupCubit>()
-                          .changeOrderStrategy(value);
-                    },
-                  ),
-                ),
-              ),
+              SizedBox(height: 16),
               Center(child: StepperActions()),
             ],
           ),

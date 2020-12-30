@@ -85,26 +85,24 @@ class EventSetup extends StatelessWidget {
         return StepLayout(
           image: SvgOrPngImage('assets/images/img-undraw-team-spirit.png'),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                    'Who\'s gonna join you?',
-                    style: theme.textTheme.headline6,
-                  ),
-                ),
+              Text(
+                'Who\'s gonna join you?',
+                style: theme.textTheme.headline6,
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(texts.setup_event_description),
+              SizedBox(height: 16),
+              Text(
+                'First type the names of meeting participants '
+                'below. You can also paste them from a spreadsheet or list.',
               ),
               PasteAwareTextInput(
                 onSubmitted: setupCubit.addAttendees,
               ),
-              StepperActions.animated(
-                canContinue: () => canContinue,
+              Center(
+                child: StepperActions.animated(
+                  canContinue: () => canContinue,
+                ),
               ),
               GuestList(
                 guests: state.meeting?.attendees ?? [],

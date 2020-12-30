@@ -23,9 +23,11 @@ class TimerSetup extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Timer Setup',
+                'How much time do I have?',
                 style: theme.textTheme.headline6,
               ),
+              SizedBox(height: 16),
+              Text('Choose a speaking time limit per participant.'),
               SizedBox(height: 16),
               Center(
                 child: TimerStrategySelector(
