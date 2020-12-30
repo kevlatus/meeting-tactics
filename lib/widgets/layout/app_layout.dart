@@ -39,7 +39,7 @@ class AppLayout extends StatelessWidget {
         context: context,
         title: Text(kAppName),
         actions: [
-          _SettingsButton(),
+          // _SettingsButton(),
         ],
       ),
       body: Column(
