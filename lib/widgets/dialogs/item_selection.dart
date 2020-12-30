@@ -38,7 +38,7 @@ class _ItemSelectionDialog extends HookWidget {
       child: Text("CANCEL"),
     );
 
-    Widget confirmButton = RaisedButton(
+    Widget confirmButton = ElevatedButton(
       onPressed: () {
         Navigator.pop(context, selected.value);
       },
@@ -55,12 +55,15 @@ class _ItemSelectionDialog extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(message),
+          SizedBox(height: 8),
           Container(
             width: listWidth,
-            height: 220,
+            height: 36.0 * items.length,
             child: ListView.builder(
               itemCount: items.length,
-              // padding: EdgeInsets.zero,
+              itemExtent: 36.0,
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 final item = items[index];
                 return ListTile(
