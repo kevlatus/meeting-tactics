@@ -16,6 +16,13 @@ class _MeetingNotInitialized extends StatelessWidget {
   }
 }
 
+class LobbyScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SvgOrPngImage('assets/images/img-undraw-meeting.png');
+  }
+}
+
 class _ActiveMeeting extends HookWidget {
   final MeetingSessionState session;
 
@@ -37,7 +44,7 @@ class _ActiveMeeting extends HookWidget {
       children: [
         SpeakerControls(disabled: isAnimating.value),
         if (session.speakerIndex == null)
-          Expanded(child: Text('Thinking Face'))
+          Expanded(child: LobbyScreen())
         else
           Expanded(
             child: WheelSpeakerView(
