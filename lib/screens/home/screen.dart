@@ -16,7 +16,7 @@ class HomeScreen extends HookWidget {
         controller: pageCtrl,
         scrollDirection: Axis.vertical,
         pageSnapping: false,
-        itemCount: 10,
+        itemCount: 1,
         itemBuilder: (context, index) {
           if (index == 0) {
             return IntroPage(

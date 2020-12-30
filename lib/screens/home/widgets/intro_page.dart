@@ -22,37 +22,38 @@ class IntroPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: 512),
+            child: SvgOrPngImage(
+              'assets/images/img-flexiple-virtual-office-girl.png',
+            ),
+          ),
           Text(
-            texts.home_greeting_line_1,
+            'Are you also bored by repetitive status meetings?',
             textAlign: TextAlign.center,
             style: theme.textTheme.headline6,
           ),
-          Container(height: 8),
+          SizedBox(height: 16),
           Text(
-            texts.home_greeting_line_2,
+            'Get started below to make them more engaging.',
             textAlign: TextAlign.center,
             style: theme.textTheme.subtitle1,
           ),
-          Container(height: 8),
+          Container(height: 16),
           ElevatedButton(
             child: Text(texts.home_quick_start),
             onPressed: () async {
               Navigator.of(context).pushNamed(AppRouter.meetingSetup);
             },
           ),
-          Expanded(
-            child: SvgOrPngImage(
-              'assets/images/img-flexiple-virtual-office-girl.png',
-            ),
-          ),
-          OutlinedButton(
-            child: Text('or learn more...'),
-            onPressed: () {
-              if (onNextPage != null) {
-                onNextPage();
-              }
-            },
-          ),
+          // OutlinedButton(
+          //   child: Text('or learn more...'),
+          //   onPressed: () {
+          //     if (onNextPage != null) {
+          //       onNextPage();
+          //     }
+          //   },
+          // ),
         ],
       ),
     );
