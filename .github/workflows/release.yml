@@ -1,8 +1,8 @@
-name: Release (beta)
+name: Release
 on:
   push:
     branches:
-      - dev
+      - releases/v2
 
 jobs:
   publish:
