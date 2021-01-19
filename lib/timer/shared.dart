@@ -22,7 +22,7 @@ class TimerStrategySelector extends StatelessWidget {
       items: [
         IconTextToggleButton(
           icon: Icon(Icons.cancel),
-          text: 'None',
+          text: 'No timer',
           value: NoTimerStrategy(),
         ),
         IconTextToggleButton(
