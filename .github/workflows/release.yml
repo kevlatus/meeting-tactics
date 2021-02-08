@@ -28,7 +28,7 @@ jobs:
       #          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: build app
-        run: flutter build web
+        run: flutter build web --web-renderer html
 
       - name: Publish
         uses: netlify/actions/cli@master
