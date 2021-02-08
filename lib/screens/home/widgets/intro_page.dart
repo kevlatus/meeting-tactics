@@ -22,11 +22,6 @@ class IntroPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: SvgOrPngImage(
-              'assets/images/img-flexiple-virtual-office-girl.png',
-            ),
-          ),
           Text(
             'Are you also bored by repetitive status meetings?',
             textAlign: TextAlign.center,
@@ -38,12 +33,18 @@ class IntroPage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: theme.textTheme.subtitle1,
           ),
-          Container(height: 16),
+          SizedBox(height: 16),
           ElevatedButton(
             child: Text(texts.home_quick_start),
             onPressed: () async {
               Navigator.of(context).pushNamed(AppRouter.meetingSetup);
             },
+          ),
+          SizedBox(height: 16),
+          Expanded(
+            child: SvgOrPngImage(
+              'assets/images/img-flexiple-virtual-office-girl.png',
+            ),
           ),
           // OutlinedButton(
           //   child: Text('or learn more...'),
