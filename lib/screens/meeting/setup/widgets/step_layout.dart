@@ -33,6 +33,7 @@ class StepLayout extends HookWidget {
                   ),
                 ),
               ),
+            SizedBox(height: 8),
             if (image != null) image
           ],
         ),
