@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meet/screens/meeting/meeting.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meet/router.gr.dart';
+import 'package:meet/screens/screens.dart';
 import 'package:meet/settings/settings.dart';
 
 import 'constants.dart';
-import 'routes.dart';
 import 'theme.dart';
 
 class MeetApp extends StatefulWidget {
@@ -18,6 +18,8 @@ class MeetApp extends StatefulWidget {
 }
 
 class _MeetAppState extends State<MeetApp> {
+  final _router = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -32,11 +34,12 @@ class _MeetAppState extends State<MeetApp> {
         ],
         child: ThemeModeProvider(
           builder: (context, themeMode) {
-            return MaterialApp(
+            return MaterialApp.router(
               title: kAppName,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              onGenerateRoute: AppRouter.generator,
+              routerDelegate: _router.delegate(),
+              routeInformationParser: _router.defaultRouteParser(),
               themeMode: themeMode,
               theme: lightTheme,
               darkTheme: darkTheme,

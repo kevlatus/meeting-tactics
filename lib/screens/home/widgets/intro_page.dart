@@ -1,6 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meet/routes.dart';
+import 'package:meet/router.gr.dart';
 import 'package:meet/widgets/widgets.dart';
 
 class IntroPage extends StatelessWidget {
@@ -37,7 +38,7 @@ class IntroPage extends StatelessWidget {
           ElevatedButton(
             child: Text(texts.home_quick_start),
             onPressed: () async {
-              Navigator.of(context).pushNamed(AppRouter.meetingSetup);
+              AutoRouter.of(context).push(MeetingSetupRoute());
             },
           ),
           SizedBox(height: 16),

@@ -1,6 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meet/routes.dart';
+import 'package:meet/router.gr.dart';
 import 'package:meet/screens/meeting/meeting.dart';
 import 'package:meet/widgets/widgets.dart';
 
@@ -28,7 +29,7 @@ class _MeetingSetupScreenState extends State<MeetingSetupScreen> {
               onCompleted: () {
                 final setupState = context.bloc<MeetingSetupCubit>().state;
                 context.bloc<MeetingSessionCubit>().startNewSession(setupState);
-                Navigator.of(context).pushNamed(AppRouter.meetingSession);
+                AutoRouter.of(context).push(MeetingSessionRoute());
               },
             ),
           ),

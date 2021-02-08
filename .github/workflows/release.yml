@@ -27,6 +27,9 @@ jobs:
       #        with:
       #          github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: run code generator
+        run: flutter packages pub run build_runner build
+
       - name: build app
         run: flutter build web --web-renderer html
 

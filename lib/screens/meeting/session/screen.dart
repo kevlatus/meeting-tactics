@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:meet/routes.dart';
+import 'package:meet/router.gr.dart';
 import 'package:meet/screens/meeting/meeting.dart';
 import 'package:meet/timer/timer.dart';
 import 'package:meet/widgets/widgets.dart';
@@ -111,9 +111,9 @@ class MeetingSessionScreen extends StatelessWidget {
     return BlocConsumer<MeetingSessionCubit, MeetingSessionState>(
       listenWhen: (_, current) => current.isFinished,
       listener: (context, state) {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-          AppRouter.root,
-          (route) => false,
+        AutoRouter.of(context).pushAndRemoveUntil(
+          HomeRoute(),
+          predicate: (route) => false,
         );
       },
       builder: (context, state) {
