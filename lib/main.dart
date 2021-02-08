@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app.dart';
+import 'configure_non_web.dart' if (dart.library.html) 'configure_web.dart';
 
 class SimpleBlocObserver extends BlocObserver {
   @override
@@ -31,5 +32,6 @@ void main() async {
   //     ],
   //   ),
   // );
+  configureApp();
   runApp(MeetApp());
 }
