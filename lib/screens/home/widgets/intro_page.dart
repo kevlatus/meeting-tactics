@@ -22,8 +22,7 @@ class IntroPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: 512),
+          Expanded(
             child: SvgOrPngImage(
               'assets/images/img-flexiple-virtual-office-girl.png',
             ),
