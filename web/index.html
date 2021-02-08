@@ -107,13 +107,15 @@
       content="A toolbox for making meetings more efficient by using time-boxing and rotating responsibilities."
     />
 
-    <script async defer data-domain="meet.kevlatus.de" src="https://plausible.io/js/plausible.hash.js"></script>
+    <script async defer data-domain="meet.kevlatus.de" src="https://stats.kevlatus.de/js/plausible.hash.js"></script>
   </head>
   <body>
     <script>
       if ("serviceWorker" in navigator) {
-        window.addEventListener("flutter-first-frame", function () {
-          navigator.serviceWorker.register("flutter_service_worker.js");
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+          }
         });
       }
     </script>
